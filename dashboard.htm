@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+<!--script src="ChartJs_2.9.4_Chart.min.js"></script-->
+<title>Laon Makers Dashboard</title>
+</head>
+<body>
+<h1>Welcome to Laon Makers Project Dashboard !</h1>
+<br/>
+<br/>
+<hr/>
+<h2 style='color: blue;'> &lt;&emsp;Project Status (% of completion)&emsp;&gt;</h2>
+<br/>
+<canvas id="dashboardChart" style="width:100%;max-width:600px"></canvas>
+<br/>
+<button type='button' onclick='chgPrjColor()'>Change Project Color</button>&nbsp;&nbsp;
+<button type='button' onclick='chgProgress()'>Change Project Progress</button>
+<br/>
+<br/>
+<br/>
+<hr/>
+<h2 style='color: blue;'>&lt;&emsp;Project Hours Distribution (%)&emsp;&gt;</h2>
+
+
+<canvas id="workTypeChart" style="width:100%;max-width:600px"></canvas>
+<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<button type='button' onclick='chgWorkTypeHour()'>Change Work Type Hour</button>&nbsp;&nbsp;&emsp;
+<hr/>
+
+<script src ="dashboard.js"></script>
+</body>
+</html>
