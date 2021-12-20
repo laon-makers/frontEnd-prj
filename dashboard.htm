@@ -18,8 +18,21 @@
 <br/>
 <canvas id="dashboardChart" style="width:100%;max-width:600px"></canvas>
 <br/>
-<button type='button' onclick='chgPrjColor()'>Change Project Color</button>&nbsp;&nbsp;
-<button type='button' onclick='chgProgress()'>Change Project Progress</button>
+<select id="selPrj">
+    <option> -- Choose Project --</option>
+    <option>Dashbord</option>
+    <option>Game</option>
+    <option>IOT</option>
+    <option>Bug Tracker</option>
+    <option>Blog</option>
+    <option>Financial Portal</option>
+    <option>Inventory Control</option>
+    <option>Work Order System</option>
+</select><br/><br/>
+<input id='newProgress' type='text'/>
+<button type="button" onclick="chgProgress()">Change Progress</button><br/><br/>
+<button type='button' onclick='chgPrjColor()'>Change Project Color for Fun</button>&nbsp;&nbsp;
+<button type='button' onclick='confuseProgress()'>Confuse Project Progress</button>
 <br/>
 <br/>
 <br/>

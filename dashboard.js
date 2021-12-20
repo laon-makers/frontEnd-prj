@@ -52,7 +52,7 @@ function chgPrjColor() {
     dashbdChart.update();
 }
 
-function chgProgress() {
+function confuseProgress() {
     let i = 0;
     tmp = yPrjProgress[yPrjProgress.length - 1];
     for (i = yPrjProgress.length - 1; i > 0; i--) {
@@ -63,7 +63,18 @@ function chgProgress() {
     dashbdChart.update();
 }
 
+function chgProgress() {
+    let sel = document.getElementById('selPrj');
+    let newVal = document.getElementById('newProgress');
+    let ix = sel.selectedIndex - 1;
+    if( ix < 8 ) {
+        yPrjProgress[ix] =  parseInt(newVal.value.trim());
 
+        dashbdChart.update();
+    } else {
+        alert("invalid number!")
+    }
+}
 
 
 var xWorkTypeNames = ["Design", "Development", "Test & Debug", "Change Request", "Customer Service"];
