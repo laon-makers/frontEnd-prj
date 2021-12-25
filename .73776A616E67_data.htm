@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src='.s73776A616E67_data.js'></script>
+    <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+          /*padding-left: 1em;
+          padding-right: 1em;*/
+          padding: 5px;
+        }
+        th { background-color: lightblue;
+             color: black;}
+    </style>
+    <title>Status</title>
+</head>
+<body>
+    <h1>Status Table</h1>
+    <table id='statusTbl' style='width:auto; text-align: center;'>
+        <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>시작</th>
+            <th>종료</th>
+            <th>시간</th>
+            <th>요율 ($/h)</th>
+            <th>입금</th>
+            <th>잔액</th>            
+            <th>Comment</th>
+        </tr>        
+    </table>
+    <button id='btnPrev' type='button' onclick='populateTable(false)' hidden>Previous Page</button>&emsp;
+    <button id='btnNext' type='button' onclick='populateTable(true)' hidden>Next Page</button>
+    <script>
+        let pageIx = 0, tblRowIx = 0, cnt = 0;
+        let pageStart = [];
+        let rt = [];
+        let rTmp;        
+        let param = location.search.substring(1).split("&");
+        temp = param[0].split("=");
+
+        if( temp.length > 1 ) {        
+            if( temp[0] == 'valid' ) {
+
+                let tbl = document.getElementById('statusTbl');
+                let i = 0;
+                rTmp = refRt[0].split('.');                
+                rt[0] = parseInt(rTmp[0]);
+                rt[1] = parseInt(rTmp[1]);
+                rt[2] = parseInt(rTmp[2]);
+
+                for( i = 0; i < dateTimeLog.length; i++) {
+                    let td;
+                    let txt;
+                    if(dateTimeLog[i][0] == 0 ) {
+                        continue;
+                    } else if(dateTimeLog[i][0] > 0 ) {
+                        if( (cnt%10) == 0 ) {
+                            pageStart[pageIx] = i;
+                            pageIx += 1
+                        }
+
+                        if( cnt < 10 ) {
+
+                            let tr = document.createElement('tr');
+                            if( (dateTimeLog[i][0]%2) == 0 ) {
+                                //tr.style = 'background-color:lightyellow;';
+                                tr.style.background_color = 'lightyellow';
+                            }
+                            for( let j = 0; j < 9; j++) {
+                                td = document.createElement('td');
+                                if(j == 0) {
+                                    txt = (cnt + 1).toString();
+
+                                } else if(j == 5) {
+                                    let v1 = dateTimeLog[i][j-1].split(':');
+                                    let v2 = parseInt(v1[0]) + (parseInt(v1[1])/60);
+                                    txt = "$" + Math.round((rt[1]*2)/v2) +  "/h";
+                                } else if (j == 7) {
+                                    txt = dateTimeLog[i][j] * rt[1];
+                                } else {
+                                    txt = dateTimeLog[i][j];
+                                }
+                                txt = document.createTextNode(txt);
+                                td.appendChild(txt);
+                                tr.appendChild(td);
+                            }
+                            tbl.appendChild(tr);
+
+                            cnt += 1;
+                            if( cnt >= 10 ) {
+                                document.getElementById('btnPrev').hidden = false;
+                                document.getElementById('btnNext').hidden = false;
+                                //break;
+                            }
+                        } else {
+                            cnt += 1;
+                        }
+                        
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+
+        pageIx = 0;
+
+        function populateTable(bForward) {            
+            let i = 0;
+            
+            if( bForward == true ) {
+                pageIx += 1;
+                if( pageIx >= pageStart.length) {
+                    pageIx -= 1;
+                    return;
+                }
+            } else {
+                if(pageIx == 0) {
+                    return;
+                } else {
+                    pageIx--;
+                }                
+            }
+            cnt = 0;
+            tblRowIx = 1;
+            let tr = document.getElementsByTagName('tr');
+
+            for( i = pageStart[pageIx]; i < dateTimeLog.length; i++) {
+                let td;
+                let txt;
+                if(dateTimeLog[i][0] == 0 ) {
+                    //tblRowIx += 1;
+                    continue;
+                } else if(dateTimeLog[i][0] > 0 ) {
+                    
+                    for( let j = 0; j < 9; j++) {                        
+                        if(j == 0) {
+                            txt = (pageIx * 10 + tblRowIx).toString();
+                            
+                        } else if(j == 5) {
+                            let v1 = dateTimeLog[i][j-1].split(':');
+                            let v2 = parseInt(v1[0]) + (parseInt(v1[1])/60);
+                            txt = "$" + Math.round(rt[1]/v2) +  "/h";
+                        } else if (j == 7) {
+                            txt = dateTimeLog[i][j] * rt[1];
+                        } else {
+                            txt = dateTimeLog[i][j];
+                        }
+                        //txt = document.createTextNode(txt);
+                        tr[tblRowIx].cells[j].textContent = txt;
+                    }
+                    tblRowIx += 1;
+                    cnt += 1;
+                    if( cnt >= 10 ) {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+
+            if( tblRowIx < 11 ) {
+                for( i = tblRowIx; i < 11; i++ ) {
+                    for( let j = 0; j < 9; j++) { 
+                        tr[i].cells[j].textContent = '';
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

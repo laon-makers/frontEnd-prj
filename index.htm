@@ -1,22 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Laon Makers</title>
 </head>
+
 <body>
   <h1>Welcome to Laon Makers' Playground !</h1>
-  <br/>
-  <br/>
-  <hr/>
-  <div>
-    <p style='color: blue; font-size: 25px;'>Dashboard</p>
-    <p>This dashboard shows what projects Laon makers are either working on or planning to begin.</p>
-    <p>Please click following link to get there.</p> 
-    <a href="dashboard.htm">GoTo Dashboard</a><br/>
+  <br />
+  <br />
+  <div style='width:650px;''>
+    <hr/>
+    <p style=' color: blue; font-size: 25px;'>Dashboard</p>
+    <p>This dashboard shows what projects Laon makers are either working on or planning to begin with.</p>
+    <p>Please click following link to get there.</p>
+    <a href="dashboard.htm">GoTo Dashboard</a><br /><br/><br/>
+    <hr /><br />
+
+    <i><label for="stPw">Password: </label><input type='password' id='stPw' style='width: 100px;'></input>&emsp;<button type='button'
+        onclick="jumpToStatus()"><i>Validate</i></button></i>&ensp;
+    <a id='toStatus' href="#" hidden>GoTo Status</a>
+    <i id='msg' style='color:red;'>&nbsp;</i><br/><br/>
+    <i style='font-size: small;'>Laon Makers' index revision: 1.0. Last Updated: Dec. 24, 2021</i>
+    <script>
+      function jumpToStatus() {
+        let f = document.getElementById('stPw').value.trim();
+        let jp = document.getElementById('toStatus');
+        
+        //jp.prop('href', f);
+        if (f[0] == '.' && (f.search('_') == (f.length - 1))) {
+          let arr = [];          
+          for( let i = 1; i < (f.length - 1); i++) {
+            let hex = Number(f.charCodeAt(i)).toString(16);
+            arr.push(hex);
+          }
+          //arr.join('');
+          f = '.' + arr.toString().replaceAll(',','') + '_data.htm';
+          jp.setAttribute("href", f + "?valid=true");
+          jp.hidden = false;
+          document.getElementById('msg').textContent = "";
+        } else {
+          document.getElementById('msg').textContent = "Invalid !";
+        }
+      }
+    </script>
+    <hr />
   </div>
-  <hr/>
 </body>
+
 </html>
