@@ -22,7 +22,7 @@
 
     <i><label for="stPw">Password: </label><input type='password' id='stPw' style='width: 100px;'></input>&emsp;<button type='button'
         onclick="jumpToStatus()"><i>Validate</i></button></i>&ensp;
-    <a id='toStatus' href="#" hidden>GoTo Status</a>
+    <a id='toStatus' href="#" hidden>GoTo Front End Developer's Status</a>
     <i id='msg' style='color:red;'>&nbsp;</i><br/><br/>
     <i style='font-size: small;'>Laon Makers' index revision: 1.0. Last Updated: Dec. 24, 2021</i>
     <script>
@@ -34,7 +34,7 @@
         if (f[0] == '.' && (f.search('_') == (f.length - 1))) {
           let arr = [];          
           for( let i = 1; i < (f.length - 1); i++) {
-            let hex = Number(f.charCodeAt(i)).toString(16);
+            let hex = Number(f.charCodeAt(i)).toString(16).toUpperCase();
             arr.push(hex);
           }
           //arr.join('');
