@@ -9,22 +9,27 @@
 </head>
 
 <body>
-  <h1>Welcome to Laon Makers' Playground !</h1>
+  <h1>Welcome to Laon-Makers' Playground !</h1>
   <br />
   <br />
-  <div style='width:650px;''>
+  <div style='width:550px;''>
     <hr/>
-    <p style=' color: blue; font-size: 25px;'>Dashboard</p>
-    <p>This dashboard shows what projects Laon makers are either working on or planning to begin with.</p>
-    <p>Please click following link to get there.</p>
-    <a href="dashboard.htm">GoTo Dashboard</a><br /><br/><br/>
-    <hr /><br />
-
-    <i><label for="stPw">Password: </label><input type='password' id='stPw' style='width: 100px;'></input>&emsp;<button type='button'
-        onclick="jumpToStatus()"><i>Validate</i></button></i>&ensp;
-    <a id='toStatus' href="#" hidden>GoTo Front End Developer's Status</a>
-    <i id='msg' style='color:red;'>&nbsp;</i><br/><br/>
-    <i style='font-size: small;'>Laon Makers' index revision: 1.0. Last Updated: Dec. 24, 2021</i>
+    &nbsp;
+    <b style=' color: blue; font-size: 25px;'>Dashboard</b>
+    <hr/>
+    <div style='padding-left: 20px;'>
+      <b>This dashboard shows what projects Laon makers are either working on or planning to begin with.</b><br/><br/>
+      <p><i>Click following link to get there:</i></p>
+      <a href="dashboard.htm">GoTo Dashboard</a><br /><br/><br/>
+    </div>
+    <hr />
+    <div style='padding-left: 20px;'>
+      <i><label for="stPw">Password: </label><input type='password' id='stPw' style='width: 100px;'></input>&emsp;<button type='button'
+          onclick="jumpToStatus()"><i>Validate</i></button></i>&ensp;
+      <a id='toStatus' href="#" hidden>GoTo Front End Developer's Status</a>
+      <i id='msg' style='color:red;'>&nbsp;</i><br/><br/>
+      <i style='font-size: small;'>Laon Makers' index revision: 1.1. Last Updated: Dec. 26, 2021</i>
+    </div>
     <script>
       function jumpToStatus() {
         let f = document.getElementById('stPw').value.trim();
