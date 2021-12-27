@@ -11,7 +11,7 @@
     <title>Laon Makers Dashboard</title>
 </head>
 
-<body>
+<body onload='initDashboard()'>
     <h1 style='text-align:center'>Welcome to Laon Makers Project Dashboard !</h1>
     <br />
     <br />
@@ -92,10 +92,18 @@
         <button type='button' onclick='shiftWorkTypeHour()'>Shift Projects</button>&nbsp;&nbsp;&emsp;
     </div>
     <hr />
-    <i style='font-size: small;'>Laon Makers' dashboard revision: 1.0. Last Updated: Dec. 22, 2021</i>
+    <i style='font-size: small;'>Laon Makers' dashboard revision: 1.1. Last Updated: Dec. 26, 2021</i>
     <hr />
     <script src="project.js"></script>
     <script src="dashboard.js"></script>
+    <script>
+        function initDashboard() {
+            document.getElementById('selPrj').selectedIndex = 0;
+            document.getElementById('selPrj4Hour').selectedIndex = 0;
+            document.getElementById('selPrj4WT').selectedIndex = 0;
+            //document.getElementById('selWType').selectedIndex = 0;
+        }
+    </script>
 </body>
 
 </html>
