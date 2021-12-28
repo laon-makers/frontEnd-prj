@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+<!--
+    Copyright (C) 2024 Gi Tae Cho laon.makers@yahoo.com
+    This file is a part of the Smart Home WiFi Web Server project.
+    This project can not be copied and/or distributed without the express permission of Gi Tae Cho laon.makers@yahoo.com.
+
+    Author: G.T. Cho (a Laon maker/artist in Laon Creators' Group)
+    Version: 1.0
+    Last update: Jan. 17, 2022
+ -->
+<head>
+    <meta charset="UTF-8">
+    <title>Invading Characters (array)</title>    
+    <link rel="stylesheet" type="text/css" href="..\css\project.css" />
+    <style>
+        body {background-color:#fafad2;}
+    </style>
+    <!--script src="..\js\jquery-3.6.0.min.js" type="text/javascript"></script-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="..\js\project.js" type="text/javascript"></script>
+    <script>
+        let el1 = false;
+        let el2 = false;
+        let lItem = 0;
+        let lIx = 0;
+        
+        function showElement(item) {        
+            if( item < 0 ) {
+                let lId;
+                let id;
+                let ix = item * -1;
+                
+                if(item !== lItem) {
+                    switch(lItem) {
+                    case -1:    lId = "#moveChII";      break;
+                    case -2:    lId = "#moveChArryII";  break;
+                    case -3:    lId = "#invadingCh";    break;
+                    case -4:    lId = "#lab";           break;
+                    case  0:    document.getElementById('dtGoal').hidden = true; break;
+                    }
+                }
+                
+                switch(item) {
+                case -1:    id = "#moveChII";       break;
+                case -2:    id = "#moveChArryII";   break;
+                case -3:    id = "#invadingCh";     break;
+                case -4:    id = "#lab";            break;
+                }
+                
+                if(lId !== null) {
+                    $(lId).slideUp(300);
+                    if(lIx !== 0) $('#m' + lIx.toString()).removeClass('sel');
+                }
+                
+                if(id !== null) {
+                    $(id).slideDown(300);
+                    $('#m' + ix.toString()).addClass('sel');
+                    lIx = ix;
+                }
+                
+                lItem = item;
+                
+            } else if(item === 1) el1 = true;
+        }
+    </script>
+</head>
+<body>
+    <noscript> 만약 이 메시지를 보신다면 javascript가 off된 상태이니 on시켜 줘야만 본 페이지의 내용을 설계된 대로 보실 수 있습니다.</noscript> <!-- 이 tag는 Javascript가 동작하지 않을 때 내용을 표시해 준다. -->
+    <header><h1>Invading Characters (advanced level)</h1></header>
+    <nav><br/><br/>
+        <mark><b>Advanced</b></mark><br/><br/>1.
+        <!--<a href="#" id="m1" class="prj" onClick="showElement(-1)">문자이동 II</a><br/><br/>2.
+        <a href="#" id="m2" class="prj" onClick="showElement(-2)">문자이동 II <br/> &emsp;(Array)</a><br/><br/>3. -->
+        <a href="#" id="m3" class="prj" onClick="showElement(-3)">Invading<br/> &emsp;Characters</a><!--br/><br/>4.
+        <a href="#" id="m4" class="prj" onClick="showElement(-4)">Invading<br/> &emsp;Word</a><br/><br/-->
+    </nav>
+    <section> 
+        <div id="dtGoal"><br/>
+            <h1>Advanced Level Projects</h1>
+            <hr>
+                <h4 style="line-height:150%;"> &emsp;
+                    이곳에서는 난이도가 높은 Small/Large project들을 다룹니다.<br/>&emsp;
+                    내용을 보려면 왼쪽 <b style='color:blue'>1. Invading Characters</b>을 클릭해 주세요 !
+                </h4>
+            <hr>
+        </div>
+        <div id="moveChII" hidden>
+            <b><mark>A-1. 문자 이동 II</mark></b><br/>
+            
+        </div>    
+        
+        
+        <div id="moveChArryII" hidden>
+            <b><mark>A-2. 문자 이동 (Array) II</mark></b><br/><br/>
+            
+        </div>
+
+
+        <div id="invadingCh" hidden>
+            <b><mark>A-3. Game Project: Invading characters</mark></b><br/>
+                
+            <dl class="accordion">
+                <dt>Project를 시작 하며 ...</dt><dd><br/>&nbsp;
+                    * This project is to practice arrays and pointers. Once this project is complete,<br/>
+                    you will see tones of both alphabets and numbers coming down from top line of the <br/>
+                    playground. If you type any character in the playground, then the character will <br/>
+                    disappear, but if you type wrong one, then you lose a point. All characters on the <br/>
+                    playground and new one that would just show up from the top line of the playground, <br/>
+                    must move down all together by one line every half a second as a default. <br/>
+                    One or more characters show up each time. If any of the character hits the bottom<br/>
+                    line of the playground, you lose 20 points, then the game is over. When you implement<br/>
+                    this project, you need to use multiple arrays.<br/>
+                   </dd>
+                   <dt><i style="font-size:15px;">난이도</i></dt><dd>&nbsp;
+                    Array를 이용하는 이번 Project의 난이도는 Advanced Level 입니다.<br/>
+                   project는 size 가 15x30 cell인 Playground 에서 떨어져 내려오는<br/>
+                   문자가 바닦에 닿기전에 해당 문자를 keyboard로 입력하는 Game을 만드는 것입니다.<br/>
+                   지금까지 진행된 Moving Character project들을 모두 마쳤다면,<br/>
+                   이번 project도 무난히 마칠 수 있습니다. <br/>
+                   아래 List된 small task들을 하나씩 완성해 주세요. <br/>
+                   그러면 어느덧 게임이 완성돼 있을 것입니다.<br/><br/>
+                   </dd><br/><br/>
+
+                <dt><i style="font-size:15px;">Close All</i></dt><dd></dd><br/>
+                <dt>1. Define 15x31 character array</dt><dd>    
+                    <a class="prj" href='invadingChExe.htm?prj=2&id=1'><br/>
+                        1) 15개의 String 각각에 30개의 문자를 보관 할 수 있는 2차원 배열을 만들고, 각 String을 30개의<br/>&emsp;
+                        HTML 공백 문자 '&amp;nbsp;' 로 채워 줍니다. 15개의 String을 각 줄에 print하기 전에 문자열 <br/>&emsp;
+                        " 1 3 5 6 9 1 3 5 7 9 1 3 5 7 9 1"를 먼저 print 하세요. 그리고 각 줄 마지막에 한게의<br/>&emsp;
+                        white space와 줄 번호를 1 ~ 15까지 각각 print 하세요.<br/>								
+                        &nbsp;Note:각 String을 한줄에 하나씩 순차적으로 Print했을때 Print된 문자가 점유하는<br/>
+                        15x30 직사각형을 Playground라고 부르기로 합니다.<br/></a>
+                </dd>
+                <dt>2. Playground 외곽선을 문자 '*'로 그리기</dt><dd>
+                    <a class="prj" href='invadingChExe.htm?prj=2&id=2'><br/>
+                        2) 15x30 Playground의 외곽이 문자 '*'로 감싸지게 코드를 수정한 뒤<br/>
+                        &emsp;화면에 Print해 봅니다. 줄 번호는 외곽 문자 '*' 밖에 놓여야 합니다.<br/></a>
+                </dd>
+                <dt>3. Array 첫 번째 열, 10번째 자리에 문자 'A' 할당</dt><dd>    
+                    <a class="prj" href='invadingChExe.htm?prj=2&id=3'><br/>
+                        3) 15x30 Playground 내 첫 줄 10 번째 cell(위치)에 문자 'A'를 print합니다.<br/>
+                        &emsp;이때 Playground의 외곽선은 문자 '*'로 그려져 있는 상태여야 합니다. <br/></a>
+                </dd>
+                <dt>4. Playground에 세로로 알파벳 print</dt><dd>    
+                    <a class="prj" href='invadingChExe.htm?prj=2&id=4'><br/>
+                        4) 15x30 Playground 내부에 있는 각 줄의 15번째 cell(위치)에 한개 씩의 문자를 print합니다.<br/>
+                        &emsp;이때 출력할 문자는 알파벳 'A'에서 'O'까지 알파벳 순으로 한 줄에 한 문자씩 Print 합니다.<br/>
+                        &emsp;즉, 첫 번째 줄에는 'A', 그 다음 줄엔 'B'와 같이 print 하여, 마지막 줄엔 'O'가 print 되면 됩니다.<br/></a>
+                </dd>
+                <dt>5. Playground에 세로로 1초당 한 문자씩 print</dt><dd>    
+                    <a class="prj" href='invadingChExe.htm?prj=2&id=5'><br/>
+                        5) 위 4번에서 출력하던 A-O까지의 문자를 이번엔 매 1초 마다 한 개씩 프린트하게 합니다.<br/>
+                        &emsp;이때 gameEvent.js에 있는 Library 함수 setNewTimerExpiry와 isTimerExpired를 이용하세요.<br/>
+                        &nbsp;Tip) 다음은 Library 함수에 대한 사용 예입니다.<br/></a><br/>
+                    
+                    <pre class="cFormat">
+        
+        function test() {
+                ...
+            if( bGameInitialized == false ) {
+                bGameInitialized = true;            
+                setNewTimerExpiry(1000);
+                ...
+            }
+
+            if(isTimerExpired() == true) {
+                ...
+                setNewTimerExpiry(timerExpiryTime);
+                ...
+            }
+        }
+
+                    </pre>								
+                </dd>
+                <dt>6. 문자 Print 시간 간격 조정</dt><dd>    
+                    <a class="prj" href='invadingChExe.htm?prj=2&id=6'><br/>
+                        6) 문자가 프린트 되는 시간 간격을 사용자가 선택할 수 있도록<br/>
+                        &emsp;다음과 같이 Option을 제시한 뒤 선택된 시간을 적용해 보세요.<br/><br/>
+
+                        &nbsp;Printing Interval in milliseconds:<br/>
+                        &emsp; 1 - 1000 msec.<br/>
+                        &emsp; 2 - 800 msec.<br/>
+                        &emsp; 3 - 500 msec.<br/>
+                        &emsp; 4 - 300 msec.<br/>
+                        &emsp; 5 - 200 msec.<br/>
+                        &nbsp;Please select one of options above in order to set time interval:<br/></a>
+                </dd>
+                <dt>7. Random 문자 Print</dt><dd>    
+                    <a class="prj" href='invadingChExe.htm?prj=2&id=7'><br/>
+                        7) 프린트 되는 문자를 변경해 보세요.<br>
+                        &emsp;고정된 A-O까지 문자 대신 Math.random()같은 난수 생성 함수가 return<br/>
+                        &emsp;하는 숫자를 사용해 A에서 Z까지의 알파벳을 하나씩 print해 봅니다.<br/>
+                        &emsp;단 Playground에 이미 표시된 문자는 다시 print되지 않게 하세요.<br/></a><br/>
+                        
+                        Note: 이때 난수 생성 함수는 제공되는 함수 GetUniqueRandomKey()를 사용하세요.<br/>
+                        &emsp;단 Playground에 이미 표시된 문자는 다시 print되지 않게 하세요.<br/><br/>
+                        
+                        &nbsp;Tip: 다음은 Library 함수에 대한 사용 예입니다.<br/>
+                    
+                    <pre class="cFormat">                     
+        const NUM_OF_ALPHABET = 26
+        
+        function test() {
+            let line;
+            let key;
+            ...
+
+            key = GetUniqueRandomKey(arrayPlayGround, NUM_OF_ALPHABET, row);
+            arrayPlayGround[row][14] = key;
+            line = "*" + arrayPlayGround[row].join('') + "* " + row.toString() + "&lt; br/&gt;";
+            blackBoard.innerHTML += line;
+            ...
+        }
+                    </pre>
+                </dd>
+                <dt>8. Random 한 위치에 문자 Print</dt><dd>    
+                    <a class="prj" href='invadingChExe.htm?prj=2&id=8'><br/>
+                        8) 이번엔 각 줄에서 print되던 문자의 위치를 고정된 위치가 아닌 Random한 위치로 변경 하세요.<br/>
+                        &emsp;이때 Random한 위치 값은 제공된 Library 함수인 GetRandomValue를  사용하면 됩니다.<br/>
+                        &emsp;즉, 이 함수가 return 하는 값을 위치 값으로 사용하는 것입니다.<br/></a><br/>
+
+                        &nbsp;Tip: 다음은 Library 함수에 대한 사용 예입니다.<br/>
+                    
+                        <pre class="cFormat">                     
+            const PLAYGROUND_WIDTH = 30
+            
+            function test() {
+                let line;
+                let column;
+                ...
+                column = GetRandomValue(PLAYGROUND_WIDTH);
+                ...
+            }
+                        </pre>
+                        
+                </dd>
+                <dt>9. 위 8번 연속 2회 반복</dt><dd>    
+                    <a class="prj" href='invadingChExe.htm?prj=2&id=9'><br/>
+                        9) 위 8번이 두번 반복되어 print되게 하세요.<br/>
+                        &emsp;출력이 모두 끝나면, 2개의 Playground가 화면에 표시 돼야 합니다.</a>
+                </dd>
+                <dt>10. 위 9번 반복시 같은 위치에서 반복 print</dt><dd>    
+                    <a class="prj" href='invadingChExe.htm?prj=2&id=10'><br/>
+                        10) 위 9번에서 2개의 Playground가 차례로 print 되었는데, 이번 Task에선<br/>
+                        &emsp; 2번째 print되는 Playground가 첫번째 것을 overwrite 하게 하세요.<br/>
+                        &emsp; 추가로, Playground 각 줄의 끝에 표시 했던 줄 번호는 이제부터 표시되지 않게 하세요.<br/></a>
+                </dd>
+                <dt>11. Print되는 문자를 항상 첫 줄에 표시하기</dt><dd>    
+                    <a class="prj" href='invadingChExe.htm?prj=2&id=11'><br/>
+                        11) 새로 프린트할 문자가 항상 Playground의 첫 줄에 print되게 하세요. 즉 앞서 print된 문자는 바로 뒤를<br/>&emsp;
+                        이어 print되는 문자보다 항상 한줄 아래 위치하게 하는 것입니다. 그래서 15개 문자가 프린트 된다면 가장<br/>&emsp;
+                        먼저 print 됐던 문자는 가장 아래인 15번째 줄에 위치하고, 그 뒤를 이어 프린트 됐던 문자는 그보다 한줄 <br/>&emsp;
+                        위인 14번째 줄에 놓이며, 그 다음 것은 13번째줄... 이렇게 반복되다 제일 늦게 print된 것은 playground의<br/>&emsp;
+                        첫번째 줄에 놓이게 되는 것입니다. <br/> Note: head라는 global 변수를 정의하고 이 head가 새로 생성된 <br/>&emsp;
+                        문자를 보관할 playground array 문자열(String)을 가리키게 하세요. 즉 head가 가리키는 문자열에 바로 <br/>&emsp;
+                        다음에 생성되는 Random 문자를 저장하게 됩니다.<br/></a>
+                </dd>
+                <dt>12. 반복 print 전 사용자 key 입력 대기 </dt><dd>    
+                    <a class="prj" href='invadingChExe.htm?prj=2&id=12'><br/>
+                        12) 위 11번에서 15개 문자를 print하고 다시 한번 반복 되기 전에 사용자의 key 입력을 기다리게 하세요.<br/>&emsp;
+                            "Press 'Enter' key to continue." 란 메시지를 출력해 User가 key를 입력해야 함을 알려 주어야 합니다.<br/>&emsp;
+                            key가 입력되면 나머지 한번이 다시 시작 되게 하세요.<br/></a><br/>
+
+                        &nbsp;Tip: Keyboard가 눌렸는지 확인 할 때 제공된 scanUserKey() 함수를 이용하세요.<br/><br/>
+                        <pre class="cFormat">
+            const KEY_ENTER = 0x0D;
+            const KEY_ESC   = 0x1B;
+            
+            function test() {
+                ...
+                let key = scanUserKey();
+                if( key == KEY_ESC ) {
+                    ...
+                } else if ( key != null ) {
+                    ... // your code here when any key has been pressed (except ESC key).
+                }
+                ...
+            }
+                        </pre>
+                        
+                </dd>
+                <dt>13. 일치 하는 문자 삭제</dt><dd>    
+                    <a class="prj" href='invadingChExe.htm?prj=2&id=13'><br/>
+                        13) Playground에 문자가 print되는 동안 User가 입력하는 문자가 playground에 print된 문자와<br/>&emsp;
+                            일치 하면 해당 문자를 playground에서 사라지게 하세요. User가 입력하는 key는 앞서 소개된<br/>&emsp;
+                            scanUserKey()를 사용하면 됩니다. 이 함수는 사용자가 key를 입력할 때만 null이 아닌 key 값을 return 합니다.<br/><br/>
+                        &nbsp;Tip: 아래는 이 project에서 사용 할 수 있는 다른 key 값들 예입니다.<br/></a><br/><br/>
+
+                    <pre class="cFormat">
+        const KEY_0       = 0x30;
+        const KEY_9       = 0x39;
+        const KEY_A_OR_a  = 0x41;
+        const KEY_Z_OR_z  = 0x5A;
+                    </pre>
+                </dd>
+                <dt>14. 사라진 문자 수 표시</dt><dd>    
+                    <a class="prj" href='invadingChExe.htm?prj=2&id=14'><br/>
+                        14) 몇개의 문자를 사라지게 했는지, 몇개의 문자가 아직 남아 있는지,<br/>&emsp;
+                            그리고 몇번 playground에 없는 문자를 입력했는지 count해서 <br/>&emsp;
+                            15개 문자가 모두 print된 뒤 그 결과를 아래의 예처럼 print하세요.<br/>&emsp;&nbsp;
+                             e.g) "Hit: 10, Wrong: 3, Left: 5"<br/><br/></a><br/>
+                        Note:<br/>&nbsp;
+                         A) Playground에 남아 있는 문자 수와 Left에 표시된 숫자가 항상 일치 해야 합니다. <br/>&nbsp;
+                         B) Global 변수 tail을 정의하고, 이 곳에 저장된 값이 Playground 가장 아랫<br/>&emsp;
+                            부분에 표시되는 문자를 포함한 문자열(string)을 가리키게 하세요. <br/></a>
+                    
+                </dd>
+                <dt>15. Playground 하단에서 가장 가까운 문자 위치 표시</dt><dd>    
+                    <a class="prj" href='invadingChExe.htm?prj=2&id=15'><br/>
+                        15) Playground 바닦 바깥쪽에 가장 아래의 문자가 몇번째 줄에 도착했는지,<br/>&emsp;
+                            몇개의 문자를 사라지게 했는지, 틀린 문자를 몇번이나 입력했는지,<br/>&emsp;
+                            그리고 마지막으로 현재까지 몇개의 문자를 Playground에 표시 했었는지<br/>&emsp;
+                            아래와 같이 항상 표시되게 하세요.<br/>&emsp;&nbsp;
+                             "Bottom: 10, Hit: 5, Wrong: 3, Gen.: 8"<br/></a>
+                </dd>
+                <dt>16. Game 중 User key 입력 받기</dt><dd>    
+                    <a class="prj" href='invadingChExe.htm?prj=2&id=16'><br/>
+                        16) 이번에 두 가지 기능을 추가 합니다.<br/>&emsp;
+                            첫 번째 것은, 게임중 ESC 키를 누른면 게임이 바로 종료 되게 하세요.<br/>&emsp;
+                            두 번째 것은, 한번의 게임이 끝나면 게이머가 게임을 종료할지 더 할지 결정하게 하게 하세요.<br/>&emsp;
+                            아래와 같이 질문 한 뒤 '1'을 누르면 게임을 다시 시작하게 하고 '0'를 누르면 종료하게 하면 됩니다.<br/>&emsp;&emsp;
+                                Please type '1' for another play, or '0' to exit.<br/>&emsp;&emsp;
+                                Would you like to do it again? (1/0): <br/>&emsp;
+                            '1' 이나 '0'이 아닌 값을 입력하면 값을 다시 입력해 달라는 문자를 print하고<br/>&emsp;
+                            Gamer로 부터 입력을 다시 받게 하세요. 게이머가 '0'를 누르기 전까지는<br/>&emsp;
+                            게임이 계속 반복 되게 하세요. 참고로, 함수 scanUserKey() 또는 GetCh()는<br/>&emsp;
+                            ESC 키가 눌렸을 때 0x1B 값을 리턴해 줍니다.<br/></a>
+                    
+                </dd>
+                <dt>17. Print할 문자 갯수 최대 50개로 지정</dt><dd>    
+                    <a class="prj" href='invadingChExe.htm?prj=2&id=17'><br/>
+                        17) Playground의 가장 마지막 줄에 문자가 도착하지 않는 다면,<br/>&emsp;
+                            최대 50개까지 Random 문자를 playground에 출력되게 하세요.<br/></a>
+                </dd>
+                <dt>18. 50개의 문자가 Print 되면 Winner! 메지지와 함께 게임 종료시키기</dt><dd>    
+                    <a class="prj" href='invadingChExe.htm?prj=2&id=18'><br/>
+                        18) 총 50개의 문자가 Playground에 Print 될 때까지 어떤 문자도<br/>&emsp;
+                            Playground 바닦에 닿지 않았다면, 'Winner !'란 문자와 함께<br/>&emsp;
+                            게임을 종료해 주세요.<br/></a>
+                </dd>
+            </dl>
+        </div>
+            
+        <div id="invadingWord" hidden>
+            <b><mark>A-4. Invading words</mark></b><br/>
+            <dl class="accordion">
+                <dt><i style="font-size:15px;">Close All</i></dt><dd></dd><br/>    
+                <dt>A-4. Game Project: Invading words</dt>
+                <dd>* This project is to practice a pointer which deals with two dimensional array.<br/>
+                    You will see that a Korean followed by its meaning in English is coming down from the <br/>
+                    top of the playground. The pair of a Korean and English word must not be on the same <br/>
+                    line. Player can type the English word if he/she knows it before it shows up, but you <br/>
+                    will lose points if you type wrong word. If the player type correct word, the both <br/>
+                    pair disappear from the playground. If any word hits the bottom line of the playground, <br/>
+                    the game is over. All words come down all together every one second as default. You <br/>
+                    need to use one two dimension array and a double pointer variable at the least.<br/>
+                </dd>
+            </dl>    
+        </div>
+        <!--a id="goBack2" href="#" onClick="goBack(2)"><p><i>Back to the Main page</i></p></a-->
+    </section>
+    </body>

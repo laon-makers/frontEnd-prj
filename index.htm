@@ -1,57 +1,58 @@
 <!DOCTYPE html>
+<!--Copyright (C) 2024 Gi Tae Cho laon.makers@yahoo.com
+    This file is a part of the Smart Home WiFi Web Server project.
+    This project can not be copied and/or distributed without the express permission of Gi Tae Cho laon.makers@yahoo.com.
+
+    Author:G.T. Cho (a Laon maker/artist in Laon Creators' Group)
+    Version: 1.3
+    Last update: Jan. 30, 2022
+ -->
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Laon Makers</title>
+  <title>Laon Makers's Club</title>
 </head>
 
 <body>
-  <h1>Welcome to Laon-Makers' Playground !</h1>
-  <br />
-  <br />
+  <!--h1>Welcome to Laon-Makers' Playground !</h1-->
+  <img src='img/welcome.png' style='width:550px; margin-top:25px;'/>
+  <br /><br/>
   <div style='width:550px;''>
     <hr/>
     &nbsp;
     <b style=' color: blue; font-size: 25px;'>Dashboard</b>
     <hr/>
     <div style='padding-left: 20px;'>
-      <b>This dashboard shows what projects Laon makers are either working on or planning to begin with.</b><br/><br/>
+      <b>This dashboard shows what projects Laon Makers are either working on or planning to begin with.</b><br/><i>The Laon Makers is one club in the Laon Creators.</i><br/><br/>
+      <img src='img/dashboard.png' style='width:40%; display: block; margin-left: auto; margin-right: auto;'/>
       <p><i>Click following link to get there:</i></p>
       <a href="dashboard.htm">GoTo Dashboard</a><br /><br/><br/>
     </div>
     <hr />
+    &nbsp;
+    <b style=' color: blue; font-size: 25px;'>Game Project</b>
+    <hr/>
+    <div style='padding-left: 20px;'>
+      <b>This Game Project is a tutorial to teach you how to make a fun game 'Invading Characters'.
+         It consists of many sub-projects through which I will walk you for the final game.</b><br/><br/>
+         <img src='img/game.png' style="width:30%; display: block; margin-left: auto; margin-right: auto;"/>
+      <p><i>Click one of following links to get to projects:</i></p>
+      <a href="game/movingChar.htm"><i>GoTo</i> &emsp;<b>Moving Character</b>&nbsp; Project</a><br/><br/>
+      <a href="game/movingChar_II.htm"><i>GoTo</i> &emsp;<b>Moving Character II</b>&nbsp; Project</a><br/><br/>
+      <a href="game/invadingChar.htm"><i>GoTo</i> &emsp;<b>Invading Character</b>&nbsp; Project</a><br/><br/><br/>
+    </div>
+    <hr />
     <div style='padding-left: 20px;'>
       <i><label for="stPw">Password: </label><input type='password' id='stPw' style='width: 100px;'></input>&emsp;<button type='button'
-          onclick="jumpToStatus()"><i>Validate</i></button></i>&ensp;
+          onclick="gotoToStatus('data/s:_data')"><i>Validate</i></button></i>&ensp;
       <a id='toStatus' href="#" hidden>GoTo Front End Developer's Status</a>
       <i id='msg' style='color:red;'>&nbsp;</i><br/><br/>
-      <i style='font-size: small;'>Laon Makers' index revision: 1.1. Last Updated: Dec. 26, 2021</i>
+      <i style='font-size: small;'>Laon Makers' index revision: 1.3. Last Updated: Jan. 30, 2022</i>
     </div>
-    <script>
-      function jumpToStatus() {
-        let f = document.getElementById('stPw').value.trim();
-        let jp = document.getElementById('toStatus');
-        
-        //jp.prop('href', f);
-        if (f[0] == '.' && (f.search('_') == (f.length - 1))) {
-          let arr = [];          
-          for( let i = 1; i < (f.length - 1); i++) {
-            let hex = Number(f.charCodeAt(i)).toString(16).toUpperCase();
-            arr.push(hex);
-          }
-          //arr.join('');
-          f = 's' + arr.toString().replaceAll(',','') + '_data.htm';
-          jp.setAttribute("href", f + "?valid=true");
-          jp.hidden = false;
-          document.getElementById('msg').textContent = "";
-        } else {
-          document.getElementById('msg').textContent = "Invalid !";
-        }
-      }
-    </script>
+    <script src='js/index.js'></script>
     <hr />
   </div>
 </body>

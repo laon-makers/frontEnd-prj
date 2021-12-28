@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--Copyright (C) 2024 Gi Tae Cho laon.makers@yahoo.com
+    This file is a part of the Smart Home WiFi Web Server project.
+    This project can not be copied and/or distributed without the express permission of Gi Tae Cho laon.makers@yahoo.com.
+
+    Author: G.T. Cho (a Laon maker/artist in Laon Creators' Group)
+    Version: 1.0
+    Last update: Dec. 27, 2021
+ -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--meta http-equiv="X-UA-Compatible" content="IE=edge"-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src='s73776A616E67_data.js'></script>
+    <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+          /*padding-left: 1em;
+          padding-right: 1em;*/
+          padding: 5px;
+        }
+        th { background-color: lightblue;
+             color: black;}
+    </style>
+    <title>Status</title>
+</head>
+<body style='padding-left: 10px;'>
+    <h1>Status Table</h1>
+    <img src='../img/sticker.png' style='margin-left: 10em; width:450px;' />
+    <table id='statusTbl' style='width:auto; text-align: center;'>
+        <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>시작</th>
+            <th>종료</th>
+            <th>시간</th>            
+            <th>요율</th>
+            <th>입금</th>
+            <th>잔액</th>
+            <th>적용(h)</th>
+            <th>Comment</th>
+        </tr>        
+    </table><br/>&emsp;
+    <button id='btnPrev' type='button' onclick='populateTable(false)' hidden>Previous Page</button>&emsp;&emsp;
+    <button id='btnNext' type='button' onclick='populateTable(true)' hidden>Next Page</button>
+    <script src='..\js\data_status.js'></script>
+</body>
+</html>

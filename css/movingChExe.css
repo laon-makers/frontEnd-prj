@@ -1,0 +1,11 @@
+#playground {
+    padding:0%;
+    background-color: black;
+    color: white;
+    font-size: small;
+    border: 1px;    
+    width: 700px;
+    height: 520px;
+    overflow: scroll;
+    /*overflow-y: scroll;*/
+}

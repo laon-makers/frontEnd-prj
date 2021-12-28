@@ -1,6 +1,13 @@
 <!DOCTYPE html>
-<html>
+<!--Copyright (C) 2024 Gi Tae Cho laon.makers@yahoo.com
+    This file is a part of the Smart Home WiFi Web Server project.
+    This project can not be copied and/or distributed without the express permission of Gi Tae Cho laon.makers@yahoo.com.
 
+    Author: G.T. Cho (a Laon maker/artist in Laon Creators' Group)
+    Version: 1.3
+    Last update: Jan. 30, 2022
+ -->
+<html>
 <head>
     <meta charset="utf-8" />
     <!--meta http-equiv="X-UA-Compatible" content="IE=edge"-->
@@ -14,88 +21,96 @@
 <body onload='initDashboard()'>
     <h1 style='text-align:center'>Welcome to Laon Makers Project Dashboard !</h1>
     <br />
-    <br />
     <hr />
-    <div style='width:601px; text-align: center; margin: auto;'>
-        <h2 style='color: blue;'> &lt;&emsp;Project Status (% of completion)&emsp;&gt;</h2>
-        <br />
-        <canvas id="dashboardChart" style="width:100%;max-width:600px"></canvas>
-        <br />
-        <select id="selPrj">
-            <option> -- Choose Project --</option>
-            <option>Dashboard</option>
-            <option>Game</option>
-            <option>IOT</option>
-            <option>Bug Tracker</option>
-            <option>Blog</option>
-            <option>Financial Portal</option>
-            <option>Inventory Control</option>
-            <option>Work Order System</option>
-        </select><br /><br />
-        <input id='newProgress' type='text' style="width:3em" />
-        <button type="button" onclick="updateProgress()">Update Progress</button><br /><br />
-        <button type='button' onclick='chgPrjColor()'>Change Color</button>&nbsp;&nbsp;
-        <button type='button' onclick='shiftProjectStatus("dashboardChart")'>Shift Progress Bars</button>
-        <br />
-        <br />
-        <br />
-        <hr />
-        <h2 style='color: blue;'>&lt;&emsp;Each Project Work Hours&emsp;&gt;</h2>
+    <!--div style='width:601px; text-align: center; margin: auto;'-->
+    <div style='display: flex; justify-content: center; align-items: flex-end; flex-wrap: wrap; column-gap: 40px;'>
+        <div id='chardBox1' style='text-align: center; width:602px;'>
+            <h2 style='color: blue;'> &emsp;Project Status (% of completion)&emsp;</h2><br/>
+            <br />
+            <canvas id="dashboardChart" style="width:100%;max-width:600px"></canvas>
+            <br />
+            <select id="selPrj">
+                <option> -- Choose Project --</option>
+                <option>Dashboard</option>
+                <option>Game</option>
+                <option>IOT</option>
+                <option>Bug Tracker</option>
+                <option>Blog</option>
+                <option>Financial Portal</option>
+                <option>Inventory Control</option>
+                <option>Work Order System</option>
+            </select><br /><br />
+            <input id='newProgress' type='text' style="width:3em" />
+            <button type="button" onclick="updateProgress()">Update Progress</button><br /><br />
+            <!--button type='button' onclick='chgPrjColor()'>Change Color</button>&nbsp;&nbsp;
+            <button type='button' onclick='shiftProjectStatus("dashboardChart")'>Shift Progress Bars</button-->            
+            <br />
+            <hr />
+        </div>
+        <div id='chardBox2' style='text-align: center; width:602px;'>
+            <h2 style='color: blue;'>&emsp;Each Project Work Hours&emsp;</h2><br/><br/>
 
 
-        <canvas id="projectHourChart" style="width:100%;max-width:600px;"></canvas>
-        <br />
-        <select id="selPrj4Hour">
-            <option> -- Choose Project --</option>
-            <option>Dashboard</option>
-            <option>Game</option>
-            <option>IOT</option>
-            <option>Bug Tracker</option>
-            <option>Blog</option>
-            <option>Financial Portal</option>
-            <option>Inventory Control</option>
-            <option>Work Order System</option>
-        </select><br /><br />
-        <input id='newHour' type='text' style="width:3em" />
-        <button type="button" onclick="updatePrjHour()">Update Hours</button><br /><br />
-        <button type='button' onclick='shiftProjectStatus("projectHourChart")'>Shift Projects</button>
+            <!--canvas id="projectHourChart" style="width:100%;max-width:600px;"></canvas-->
+            <canvas id="projectHourChart" style="width:100%;max-width:600px;"></canvas>
+            <br />
+            <!--select id="selPrj4Hour">
+                <option> -- Choose Project --</option>
+                <option>Dashboard</option>
+                <option>Game</option>
+                <option>IOT</option>
+                <option>Bug Tracker</option>
+                <option>Blog</option>
+                <option>Financial Portal</option>
+                <option>Inventory Control</option>
+                <option>Work Order System</option>
+            </select><br /><br />
+            <input id='newHour' type='text' style="width:3em" />
+            <button type="button" onclick="updatePrjHour()">Update Hours</button><br /><br /-->
+            <button type='button' onclick='chgPrjColor()'>Change Color</button>&nbsp;&nbsp;
+            <button type='button' onclick='shiftProjectStatus("projectHourChart")'>Shift Projects</button>
+            <br/><br/><br/>
+            <hr />
+        </div>
+        <div id='chardBox3' style='text-align: center; width:602px;'>
+            <h2 style='color: blue;'>&emsp;Work Hours for Each Work Type&emsp;</h2><br/><br/>
 
-        <hr />
-        <h2 style='color: blue;'>&lt;&emsp;Work Hours for Each Work Type&emsp;&gt;</h2>
-
-        <canvas id="workTypeChart" style="width:100%;max-width:600px"></canvas>
-        <br />
-        <p id="workHours">Work Hours: <b>0</b> hours</p>
-        <label for="selPrj4WT">Project: </label>
-        <select id="selPrj4WT" onchange="showSelectedPrjWorkType(this)">
-            <!--option> -- Choose Project --</option-->
-            <option>Dashboard</option>
-            <option>Game</option>
-            <option>IOT</option>
-            <option>Bug Tracker</option>
-            <option>Blog</option>
-            <option>Financial Portal</option>
-            <option>Inventory Control</option>
-            <option>Work Order System</option>
-        </select><br /><br />
-        <!--label for="selWType">Work Type: </label-->
-        <select id="selWType">
-            <option> -- Choose Work Type --</option>
-            <option>Design</option>
-            <option>Development</option>
-            <option>Test &amp; Debug</option>
-            <option>Change Request</option>
-            <option>Customer Service</option>
-        </select><br /><br />
-        <input id='newWTHour' type='text' style="width:3em" />
-        <button type="button" onclick="updateWTypeHour()">Update Hours</button><br /><br />
-        <button type='button' onclick='shiftWorkTypeHour()'>Shift Projects</button>&nbsp;&nbsp;&emsp;
+            <canvas id="workTypeChart" style="width:100%;max-width:600px"></canvas>
+            
+            <p id="workHours">Work Hours: <b style='color: red;'>0</b> hours</p><br/>
+            <label for="selPrj4WT" style='color:gray'>Project: </label>
+            <select id="selPrj4WT" onchange="showSelectedPrjWorkType(this)">
+                <!--option> -- Choose Project --</option-->
+                <option>Dashboard</option>
+                <option>Game</option>
+                <option>IOT</option>
+                <option>Bug Tracker</option>
+                <option>Blog</option>
+                <option>Financial Portal</option>
+                <option>Inventory Control</option>
+                <option>Work Order System</option>
+            </select>&emsp;&emsp;&emsp;<br /><br />
+            <!--label for="selWType">Work Type: </label-->
+            <select id="selWType">
+                <option> -- Choose Work Type --</option>
+                <option>Design</option>
+                <option>Development</option>
+                <option>Test &amp; Debug</option>
+                <option>Change Request</option>
+                <option>Customer Service</option>
+            </select><br /><br />
+            <input id='newWTHour' type='text' style="width:3em" />
+            <button type="button" onclick="updateWTypeHour()">Update Hours</button><br /><br />
+            <button type='button' onclick='shiftWorkTypeHour()'>Shift Work Types</button>
+            <br/><br/>
+            <br/><hr/>
+        </div>
     </div>
+    <div style='text-align: center;'><i style='font-size: small;'>Laon Makers' dashboard revision: 1.3. Last Updated: Jan. 30, 2022</i></div>
     <hr />
-    <i style='font-size: small;'>Laon Makers' dashboard revision: 1.1. Last Updated: Dec. 26, 2021</i>
-    <hr />
-    <script src="project.js"></script>
-    <script src="dashboard.js"></script>
+
+    <script src="data/projectInfo.js"></script>
+    <script src="js/dashboard.js"></script>
     <script>
         function initDashboard() {
             document.getElementById('selPrj').selectedIndex = 0;

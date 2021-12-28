@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ko">
+<!--
+    Copyright (C) 2024 Gi Tae Cho laon.makers@yahoo.com
+    This file is a part of the Smart Home WiFi Web Server project.
+    This project can not be copied and/or distributed without the express permission of Gi Tae Cho laon.makers@yahoo.com.
+
+    Author: G.T. Cho (a Laon maker/artist in Laon Creators' Group)
+    Version: 1.0
+    Last update: Jan. 3, 2022
+ -->
+<head>
+    <meta charset="UTF-8">
+    <title>Moving Characters II</title>    
+    <link rel="stylesheet" type="text/css" href="..\css\project.css" />
+    <style>
+        body {background-color:#fafad2;}        
+    </style>
+    <!--script src="..\js\jquery-3.6.0.min.js" type="text/javascript"></script-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="..\js\project.js" type="text/javascript"></script>
+    <script>
+        let el1 = false;
+        let el2 = false;
+        let lItem = 0;
+        let lIx = 0;
+        
+        function showElement(item) {        
+            if( item < 0 ) {
+                let lId;
+                let id;
+                let ix = item * -1;
+                
+                if(item !== lItem) {
+                    switch(lItem) {
+                    case -1:    lId = "#moveChII";      break;
+                    case -2:    lId = "#moveChArryII";  break;
+                    case -3:    lId = "#invadingCh";    break;
+                    case  0:    document.getElementById('dtGoal').hidden = true; break;
+                    }
+                }
+                
+                switch(item) {
+                case -1:    id = "#moveChII";       break;
+                case -2:    id = "#moveChArryII";   break;
+                case -3:    id = "#invadingCh";     break;
+                }
+                
+                if(lId !== null) {
+                    $(lId).slideUp(300);
+                    if(lIx !== 0) $('#m' + lIx.toString()).removeClass('sel');
+                }
+                
+                if(id !== null) {
+                    $(id).slideDown(300);
+                    $('#m' + ix.toString()).addClass('sel');
+                    lIx = ix;
+                }
+                
+                lItem = item;
+                
+            } else if(item === 1) el1 = true;
+        }
+    </script>
+</head>
+<body>
+    <header><h1>Moving Characters (advanced level)</h1></header>
+    <nav><br/><br/>
+        
+        <mark><b>Advanced</b></mark><br/><br/>1.
+        <!-- <a href="#" id="m1" class="prj" onClick="showElement(-1)">문자이동 II</a><br/><br/>2. -->
+        <a href="#" id="m2" class="prj" onClick="showElement(-2)">문자이동 II <br/>&nbsp;&nbsp;&nbsp;&nbsp; (Array)</a><!--br/><br/>3.
+        <a href="#" id="m3" class="prj" onClick="showElement(-3)">Invading<br/> &nbsp;&nbsp;&nbsp; Char</a><br/><br/-->
+    </nav>
+    <section> 
+        <div id="dtGoal"><br/>
+            <h1>Advanced Level Projects</h1>
+            <hr>
+                <h4 style="line-height:150%;"> &emsp;
+                    이곳에서는 난이도가 높은 Small/Large project들을 다룹니다.<br/>&emsp;
+                    내용을 보려면 왼쪽 <b style='color:blue'>문자이동 II (Array)</b>를 클릭해 주세요 !
+                </h4>
+            <hr>
+        </div>
+        <div id="moveChII" hidden>
+            <b><mark>A-1. 문자 이동 II</mark></b><br/>
+            <br/>
+            <b style='color:blue'>Under Construction ...</b><br/><br/>
+             Please take a look at <b style='color: red'>문자이동 II (Array)</b> !
+
+        </div>    
+        
+        
+        <div id="moveChArryII" hidden>
+            <b><mark>A-2. 문자 이동 (Array) II</mark></b><br/><br/>
+            <dl class="accordion">
+                <dt>Project를 시작 하며 ...</dt><dd><br/>&nbsp;
+                 이 Project는 앞서 다룬 '문자 이동 I (Array)' 에 이어서 진행 되는 것 으로써,<br/>
+                한 개의 문자를 지정된 직사각형(30자리x15자리) Cell 내부에서 만 이동<br/>
+                시키는 것 이다 (이제 부터 이 직사각형을 Playground라 부르자).<br/>        
+                Project가 완성되면 앞서 진행한 project '문자이동 II'와 동일한 실행 과를 얻게 되지만, <br/>
+                이번 Project 에선 <ins>One Dimension Array</ins>를 이용하기 때문에 앞서 배운 내용과 Implementation 부분이 다르다.<br/>
+                이 과정을 통해 For/While loop, if statement는 물론 Array에 대한 이해를 한층 더 높여준다.<br/>
+                또한 직접 함수를 만들어 보고, 그 것에 대한 활용과, 개선 방법에 대해서도 배우며, <br/>
+                Library Function을 사용 하는 법도 익히게 된다. <br/>
+                또한 각 Small Task를 완성해 가며, 잘 짜여진 소프트웨어 구조에 대해서도 익히게 되는데, <br/>
+                이는 3개의 코드 block을 유지하려는 노력에서 얻게된다. 그 3개의 Block은 다음과 같다. <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp; 
+                    - <mark>User Input</mark>: 문자 '@'를 Playground 내에서 어느 방향으로 옮길지 지시하는 User Key 입력 block이다.<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp; 
+                    - <mark>Control</mark>: User Input에 따라 '@' 의 위치를 계산해 좌표값 row, column을 구하는 Block.<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp; 
+                    - <mark>Display</mark>: '@'의 위치 값인 row와 column을 받아서, 해당 위치에 '@'를 Print하는 Block.<br/><br/>
+                    
+                위 3개의 Block을 엄격히 구분해 Coding을 한다면, 많은 장점이 있음을 시간이 <br/>
+                지날 수록 발견 하게 된다. 즉, Code 읽기가 쉬어져서, 완성된 Project의 유지/보수가<br/>
+                용이하고, Bug를 만드는 실수를 줄일 수 있을 뿐만 아니라, Bug가 발생해도 Debugging이 <br/>
+                쉬워 질 수 있다. <br/>
+            
+                    이 Project에서 사용될 Function과 key 워드는 다음과 같다: <br/>&nbsp;
+                    <pre class="cFormat">
+            Functions:
+                - Getch();
+                - console.log("");
+                - console.clear();
+                - ScanUserKey(); // custom library function
+                - DrawCharacterInPlayground();
+                - DrawCharacterInPlayground();
+                - DrawChInPlaygroundWithFence();
+                - DrawChInShiftedPlaygdWithFence();
+                - DrawCharacterInShiftedPlaygd();
+                        
+            Key words:
+                - if(), else()
+                - for()
+                - while()
+                - switch(), case:, default:, break;
+                - return 0; 
+                    </pre>
+                    Main 함수인 movingCharArrayII() 에선 아래와 같은 switch case 구조로, 각 small task에서 define한 <br/>
+                    각 함수 들을 아래와 같이 호출 한다.<br/><br/>
+                    <pre class="cFormat">
+            movingCharArrayII() {
+                let taskId = 1;
+                
+                switch(taskId) {
+                case 1: MoveChArryII_1(); break;
+                case 2: MoveChArryII_2(); break;
+                case 3: MoveChArryII_3(); break;
+                case 4: MoveChArryII_4(); break;
+                ...
+                default: break;
+                }
+            }
+                    </pre>
+                </dd>
+                <dt><i style="font-size:15px;">난이도 선택</i></dt><dd>&nbsp;
+                 Array를 이용하는 이번 Advanced level project는 몇개의 Sub-project들로 구성돼 있습니다.<br/>
+                이들 중 한개를 선택해 프로그램을 완성 하면 되는데, 어떤 것을 선택할지는 Instructor의 도움을 얻는 것이 좋습니다.<br/>
+                즉 학생이 현 단계까지 도달하기 위해 지금까지 어떤 과정들을 거쳤는지를 고려해 Instructor와 학생간 협의를 통해 <br/>
+                sub-project를 선택합니다. 예를 들면, 이전에 '문자이동 II'라는 project를 진행 했었다면 이번 Project에선 <br/>
+                아래 Sub-project 중 1 번을 제외한 것들 중 하나를 선택하면 좋고, 그렇지 않다면 1번을 선택하는 것이 바람직 합니다.<br/><br/>&nbsp;&nbsp;&nbsp;
+                
+                1) 현재 선택된 Page에 List한 Instruction에 따라 Project를 진행합니다.<br/>&nbsp;&nbsp;&nbsp;
+                2) 현재 선택된 Page에 List한 Instruction에 따라 Project를 진행하되,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <mark>각 Array의 시작과 끝에 Playground 경계선을 표시하는 문자를 포함시켜 구현 합니다.</mark><br/>&nbsp;&nbsp;&nbsp;
+                3) 위 2번에 설명된 방식으로 Project를 진행하되, 추가로 Struct를 활용해 완성 하는 것입니다.<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   예를 들면, 표시 문자 '@'를 지정 하는 변수나 Playground내 표시될 위치 값을 저장하는 변수등과 같은<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Control data 변수 들을 Struct에 포함해 project를 완성 하는 것이다.<br/>&nbsp;&nbsp;&nbsp;
+                </dd><br/><br/>
+                
+                
+                <dt><i style="font-size:15px;">Close All</i></dt><dd></dd>
+                <dt>1) '+'/'-'/'0' Key를 Right Arrow/Left Arrow/ESC key로 변경하기</dt><dd>
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=1'><br/>
+                         Print 되는 @의 갯 수를 증가/감소 시키기 위해 사용했던 키 '+'/'-' 를<br/>&nbsp;&nbsp;&nbsp;
+                        Right Arrow/Left Arrow 키로 각각 변경 하고, Game을 종료하는 '0'는<br\>
+                        ESC 키로 변경 하세요.<br/>
+                        이때 아래 변수와 함수를 정의하고, 그 다음으로 제공되는 gameEvent.js 파일이<br/>
+                        Project에 포함 되게 해 주세요. 아래 ScanUserKey() 함수가 사용자가 입력 하는<br/>
+                        key 값들을 리턴해 주니 잘 활용해서 기능을 완성합니다.</a><br/><br/>
+                        
+                        * <span style='color:red'>주의</span>: 이 project를 진행 하는 전체 과정에서 아래 기술된 한 가지 규칙을 꼭 따라야합니다.<br/>&emsp;
+                           그 규칙은 Playground에서 표시 문자가 (default: '@') 포함된 열(row)을 그리기 위해<br/>&emsp;
+                           하나의 Array를 사용해야 한다는 것과, 이 배열에 저장된 내용을 해당 열에 print하면<br/>&emsp;
+                           '표시 문자'가 playground 에서 문제없이 정확한 위치에 print돼야 한다는 것입니다.<br/><br/>
+                        
+                        <pre class="cFormat">
+        const KEY_EQUAL_OR_PLUS         = 0x3D;
+        const KEY_MINUS_OR_UNDERSCORE   = 0xAD;
+        const KEY_ESC                   = 0x1B;
+        const KEY_SHIFT                 = 0x10;
+        const KEY_CTRL                  = 0x11;
+        const KEY_ALT                   = 0x12;
+
+        let keyEvt = {key:'', which:null, ctrl:false, alt: false, shift:false, down:false, up:false };
+
+
+        function scanUserKey() {
+            let c = null;
+        
+            if( keyEvt.down == true ) {
+                keyEvt.down = false;
+            } else if (keyEvt.up == true) {
+                keyEvt.up = false;
+                c = keyEvt.which;
+                keyEvt.which = null;
+            }
+        
+            return c;
+        }
+                    </pre>
+                    아래 함수는 ScanUserKey()를 이용하는 예입니다.
+                    <pre class="cFormat">
+        // An example function which use ScanUserKey().
+        function exampleCode(){
+            ...
+            let key;
+            
+            key = ScanUserKey();
+            
+            if(key == KEY_RIGHT_ARROW) x++;
+            else if(key == KEY_LEFT_ARROW) x--;
+            ...
+        }
+                    </pre>
+                </dd>            
+                <dt>2) '@'를 계속 같은 줄에 Print</dt><dd>
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=2'><br/>&nbsp;
+                         @를 print 할때 줄 바꿈 없이 같은 줄에 print되게 하세요.</a><br/><br/>
+                        즉, '+' 나 '-' 키 입력에 의해 print되는 @의 갯 수가 증가 또는 감소 할때,<br/>
+                        줄 바꿈 없이 같은 라인에서 계속 증가 또는 감소 하는 것임.<br/><br/>
+                        '@'를 print하기 전 console.clear() 함수를 호출해 Console 화면을 지워주면 가능함.<br/>
+                </dd>            
+                <dt>3) Right Arrow key로 '@' 우측으로 이동 시키기</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=3'><br/>&nbsp;
+                         Right Arrow 키를 1회 누를 때 마다 @가 하나 씩 증가해 print 되는 대신,<br/>
+                        Right Arrow키가 눌릴 때 마다 @가 우측으로 한 칸씩 이동 하게 수정 하세요(즉, 화면에 @가 항상 1개만 보여야함). </a><br/><br/>
+                        
+                        이 때, Program이 시작 됨과 동시에 왼쪽 끝에 '@'가 한개 프린트 되어야 하며, <br/>
+                        앞선 '문자이동 I (Array)' project에서 했듯이, '@'를 Print할 때 <br/>
+                        Array 변수 playGround[]를 이용 해야 합니다.<br/>
+                </dd>            
+                <dt>4) '@'가 30번째 자리에 있을 때 Right Arrow key를 누르면 첫 번째 자리로 이동</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=4'><br/>&nbsp;
+                         @를 30번째 자리까지 이동 시킨 뒤, Right Arrow 키를 한번 더 누르면 @가 첫번째 <br/>
+                        자리에 표시되게 하세요. 이어서 계속 동일한 키를 누르면 @가 한칸씩 우측으로 이동 해야함.<br/></a>
+                </dd>            
+                <dt>5) Left Arrow key로 '@'를 좌측으로 한 칸 씩 이동 </dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=5'><br/>&nbsp;
+                         @를 30번째 자리로 이동 시킨 뒤 Left Arrow key를 누르면 @가 29개 Print 되는 대신<br/>
+                        한개 만 29번째 자리에 Print되게 하세요.</a><br/><br/>
+                        계속 해서 Left Arrow Key를 누를 때마다 @가 왼쪽으로 한칸씩 이동해야 합니다. <br/>
+                        단 첫번째 자리에 왔을 때 Left Arrow 키를 눌렀을 때 오동작 하는 것은 이 Task에선 허용됩니다.<br/>
+                </dd>            
+                <dt>6) '@'가 첫 번째 자리에 있을때 Left Arrow key눌러 30번째 자리로 이동 시키기</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=6'><br/>&nbsp;
+                         @가 첫번째 자리에 있을 때, Left Arrow 키를 누르면 30번째 자리로 이동 해야 합니다. <br/>
+                        이어서 계속 Left Arrow key를 누르면 한 칸씩 왼쪽으로 이동 하게 해야하고, 5번과 6번을 <br/>
+                        Random 하게 반복 실행해도 정상 동작해야 합니다.<br/></a>
+                </dd>
+                <dt>7) @를 Print하는 코드와 @가 Print될 위치를 정하는 코드 분리</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=7'><br/>&nbsp;
+                         이번 Task에선 @가 Print될 위치를 정하는 코드와 @를 Print하는 부분의 코드를 <br/>
+                        분리하는 작업 입니다. </a><br/><br/>
+                        즉, User가 입력하는 Key에 따라, @의 위치를 정하는 Control 부분과 @를 실제 Print하는 <br/>
+                        Display 부를 분리하는 것 입니다. Control 부분은 그대로 두고, Display 부분만 별도의 <br/>
+                        함수를 만들어 옯기는데, 이때 사용될 함수는 아래와 같습니다. <br/><br/>
+                        
+                           <mark>DrawCharacterInPlayground(plygdRow.join(''));</mark><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                           여기서 배열 'plygdRow'는 표시할 문자 '@'를 포함한 Row 전체 값을 넘겨 받기 위한 Array 입니다. <br/>&emsp;&nbsp;&nbsp;
+                           이 Task에선 Array playgroundActiveRow에 저장된 값이 plygdRow에 의해 Access 가능하게 됩니다. <br/>&emsp;
+                <dt>8) Down Arrow key로 '@'를 아래로 이동 시키기</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=8'><br/>&nbsp;
+                         @가 첫 줄 첫 번째 자리에 있을 때 Down Arrow 키를 누를 때 마다 @가 한 줄씩 아래로 내려가게 하세요.</a><br/><br/>
+                         
+                        30 x 15 직 사각형인 Playground 를 Console 화면에 그리는 함수 DrawCharacterInPlayground에 <br/>
+                        Argument y를 아래와 같이 추가 하세요: <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                           
+                        DrawCharacterInPlayground(plygdRow.join(''), <mark>row</mark>); <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                           
+                           여기서 변수 'row'는 문자 @가 Print될 줄(Row)의 위치를 알려 주기 위한 변수 입니다; <br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                           이 함수는 plygdRow를 Print하기 전 row 가 지정한 숫자 만큼 빈 줄(Row)을 먼저 Print 합니다.<br/>
+                </dd>            
+                <dt>9) Playground 마지막 줄에 있는 '@'를 Down Arrow key 눌러 첫 줄로 이동</dt><dd>   
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=9'><br/>&nbsp;
+                         '@'가 Playground 가장 끝 줄인 15번째 줄(Row) 첫 번째 자리에 있을 때, <br/>
+                        Down Arrow 키를 한번 누르면, Playground 의 첫 줄(Row) 첫 번째 자리(Column)로<br/>
+                        이동하게 하고, '@'가 있는 좌표 값을 Print 하세요.</a><br/><br/>
+                        
+                        이 때 Playground의 마지막 줄(Row)를 표시하는 변수 'plygdHeight'를 아래와 같이 정의하고, <br/>
+                        '@'가 있는 줄이 15번째 줄인지 확인 할 때 이 변수 'plygdHeight'를 사용하세요. <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                        
+                            <mark>let plygdHeight = 15; </mark><br/><br/>
+                        아래와 같이 DrawCharacterInPlayground 함수에 column Argument를 추가 하세요.<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                        
+                        DrawCharacterInPlayground(plygdRow.join(''), lor, <mark>column</mark>); <br/><br/>
+                            
+                        '@'의 좌표 값 '(column, row)'는 아래와 같이 Print 하세요; <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                        
+                            <mark>(3, 4)</mark><br/>
+                </dd>            
+                <dt>10) TEST: Down Arrow key 연속 동작 test</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=10'><br/>&nbsp;
+                         '@'가 어떤 줄(Row)에 있더라도 Down Arrow 키를 누를 때 마다 @가 <br/>
+                        아래로 한 줄씩 내려 가게 하세요. </a><br/><br/>
+                           
+                        단, @의 열(Column)은 바뀌지 않게 하고, Playground 의 끝 줄에 <br/>
+                        있을 때 key를 한번 더 누르면 첫 줄로 이동 해야함.<br/>
+                </dd>            
+                <dt>11) Up Arrow key로 '@'를 한 줄씩 위로 이동</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=11'><br/>&nbsp;
+                         '@'를 Playground의 마지막 줄로 이동 시키세요. 거기서 Up Arrow 키를 누르면 <br/>
+                        누를 때 마다 @가 한 줄씩 위로 이동 하게 하세요. </a><br/><br/>
+                        단, 가장 윗 줄에 도착 했을때 키를 더 눌러도 더 이동하지 않게 하세요. <br/>
+                        이동 시 열(Column)이 바뀌면 안됨.<br/>
+                </dd>            
+                <dt>12)Playground 첫 줄에 있는 '@'를 Up Arrow key 로 Playground 끝 줄로 이동</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=12'><br/>&nbsp;
+                         '@'가 첫 번째 줄(Row)에 있을 때 Up Arrow 키를 한 번 누르면 <br/>
+                        Playground 가장 끝 줄인 15번째 줄로 이동하게 하세요.</a><br/><br/>
+                        단, 이동시 열(Column)이 바뀌면 안됨.<br/>
+                </dd>            
+                <dt>13) TEST: Up Arrow key 연속 동작 Test</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=13'><br/>&nbsp;
+                         위와 같이 '@'가 1번째 줄에 있을 때 Up Arrow 키를 한 번 더 눌러 15번째 줄로 이동 시킨 후, <br/>
+                        다시 Up Arrow 키를 누르면, 키를 누를 때 마다 @가 한 줄씩 위로 이동 하게 하세요.<br/></a>
+                </dd>            
+                <dt>14) TEST: Up Arrow key 연속 동작 Test II</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=14'><br/>&nbsp;
+                         '@'가 첫 번째가 아닌 자리(Column)에 있을 때 Up Arrow 키를 누르면,<br/>
+                        같은 행(Column)에서 한 줄씩 위로 이동 하게 하세요.<br/>
+                        만약 다르게 동작하면 Debugging 하세요.<br/>
+                        Up/Down Arrow 키를 Random 하게 눌러도 앞서 지시된 대로 정상 동작해야함.<br/></a>
+                </dd>            
+                <dt>15) Playground 좌우 경계로 '@' 이동 (Left/Right Arrow key)</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=15'><br/>&nbsp;
+                         '@'가 Playground 최우측 경계선인 30번째 자리(Column)중 한 줄(Row)에 <br/>
+                        있을 때 Right Arrow 키를 누르면 <mark>다음 줄</mark> 첫째 자리(Column)로<br/>
+                        '@'를 이동 시키고, 반대로 @가 각 줄 첫째 자리에 있을 때 Left Arrow 키를<br/>
+                        누르면 <mark>이전 줄</mark> 30번째 자리(Playground 가장 우측 자리)로 이동하게 하세요.</a><br/><br/>
+                        
+                        예를 들면 '@'의 위치가 (Column, Row) 좌표에서 (30, 5)에 있을 때 Right Arrow 키를 누르면 <br/>
+                        '@'가 (1, 6)으로 이동 하고, 반대로 (1, 6)에 있을 때 Left Arrow 키를 누르면, <br/>
+                        '@'가 다시 (30, 5)로 되돌아 갑니다. 이때 끝 줄과 끝 자리인 (30, 15)에서 <br/>
+                        Right Arrow 키를 누르거나 첫줄 첫째 자리인 (1,1)에서 Left Arrow 키를 <br/>
+                        를 눌렀을 때 발생하는 오동작은 이 Task에선 허용 됩니다.<br/>
+                </dd>            
+                <dt>16) '@'의 Playground 꼭지점 간 이동 (Left/Right Arrow key)</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=16'><br/>&nbsp;
+                         '@'가 Playground 최우측 하단 꼭지점 자리, 즉 15번째 줄(Row) 30번째 <br/>
+                        자리(Column)에 있을 때 Right Arrow 키를 누르면 '@'가 Playground <br/>
+                        최좌측 상단 꼭지점 자리, 즉 첫 줄(Row) 첫 번째 자리(Column)에 가게 하고, 반대로 <br/>
+                        반대로 '@'가 최좌측 상단 꼭지점 자리인 첫 줄(Row) 첫째 자리(Column)에 있을 때 <br/>
+                        Left Arrow키를 누르면 최우측 하단 꼭지점 자리인 30번째 줄(Row), 30번째 자리(Column)로 이동하게 하세요.<br/></a>
+                </dd>            
+                <dt>17) '@'의 Playground 상하 경계선 간 자리 이동 (Up/Down Arrow key)</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=17'><br/>&nbsp;
+                         '@'가 15번째 줄(Row) 위의 임의의 자리(Column)에 있을 때 Down Arrow 키를 누르면, <br/>
+                        첫 줄(Row) 그 다음 자리(Column) 으로 이동 하게 하고, 반대로 '@'가 첫 줄(Row) <br/>
+                        임의의 자리에 있을 때 Up Arrow 키를 누르면 15번째 줄(Row) 그 이전 자리(Column)으로 <br/>
+                        이동하게 하세요. </a><br/><br/>
+                        예를 들면, '@'가 (Column, Row) 좌표 (3, 15)에 있을 때 Down Arrow 키를 누르면, <br/>
+                        '@'가 (4, 1)로 이동 하고, 반대로 '@'가 (4, 1) 에 있을 때 Up Arrow 키를 누르면, <br/>
+                        '@'가 (3, 15)로 이동 합니다. <br/>
+                        단, (30,15)에 있을 때 Down Arrow 키를 누를 때 (30,1)으로 이동 하거나, <br/>
+                        '@'가 (1,1)에 있을 때 Up Arrow 키를 누르면 (1,15)로 이동 하는 등의 <br/>
+                        오동작은 이번 Task에선 허용 됩니다. <br/>
+                </dd>            
+                <dt>18) '@'의 Playground 꼭지점 간 이동 (Up/Down Arrow key)</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=18'><br/>&nbsp;
+                         '@'가 15번째 줄(Row) 30번째 자리(Column)에 있을 때 Down Arrow 키를<br/>
+                        누루면 '@'가 첫줄 첫째 자리에 가게 하고, 반대로 '@'가 첫줄 첫째 자리에 있을 때<br/>
+                        Up Arrow키를 누르면 15번째 줄 30번째 자리로 이동하게 하세요.<br/></a>
+                </dd>            
+                <dt>19) 표시 문자 '@' 변경</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=19'><br/>&nbsp;
+                         지금까지 사용했던 문자 '@' 를 다른 문자로 변경 할 수 있게 하세요. </a><br/><br/>
+                         
+                        <mark> 0 ~ 9 </mark>중 하나의 숫자를 입력 하면 아래 문자 중 하나를 0~9 숫자 순서에 대응하게 선택하면 됩니다. <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            
+                            <mark> )&emsp; !&emsp; @&emsp; #&emsp; $&emsp; %&emsp; ^&emsp; &&emsp; *&emsp; ( </mark> <br/><br/>
+                            
+                        즉 0을 입력하면 '@'를 ')'로 대체하고, 1을 누르면 '!'로, 2를 누르면 '@'로, 
+                        3을 누르면 '#'로... 이렇게 순서데로 대응하게 변경하면 됩니다.<br/><br/><br/>
+                        
+                        위에 나열된 문자를 아래와 같이 array에 정의해서 사용하세요.<br/><br/>&emsp;
+    
+                            <span style='color:blue'>let</span> movingChar[] = ")!@#$%^&*("; <br/><br/>
+    
+                        이때 사용할 문자를 가리키는 index 변수를 아래와 같이 정의해 사용하세요. <br/><br/>&emsp;
+                        
+                            <span style='color:blue'>let</span> movingChIx = 2; <br/><br/>
+                </dd>            
+                <dt>20/21) '#'으로 Playground 경계선 그리기 (2 Options)</dt><dd><br/>&nbsp;
+                         'o' 키를 누르면 30 x 15 Playground 의 경계선(Fence)이 '#'로 그려지게 하고, <br/>
+                        그 안에서 만 문자가 이동하게 하세요. 아래 2개의 Option중 하나를 선택하거나 둘다 모두 <br/>
+                        선택해 구현 하도록 합니다.</a><br/><br/>
+                        <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=20'>
+                        <ins>Option 1 (difficult)</ins> - <br/>&nbsp;&nbsp;&nbsp;&nbsp; 
+                            함수 DrawChInPlaygroundWithFence() 내부에서 console.log()를 이용해 Fence 문자를 직접 print 할 경우: </a><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            경계선이 있는 Playground 를 Console 화면에 그리는 함수를 아래와 같이 정의해 사용하세요. <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                        
+                            <mark>DrawChInPlaygroundWithFence</mark>(plygdRow, row, column, <mark>fence, plygdWidth, plygdHeight</mark>); <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                        
+                            여기서 변수 fence는 Playground 경계선을 표시하는 문자 '#'를 넘겨 받기 위한 변수,  <br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            plygdWidth 와 plygdHeight는 Playground의 가로 세로 크기 값임: 이 경우 각각 30과 15. <br/><br/>
+
+                        <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=21'>    
+                        <ins>Option 2 (easy)</ins> - <br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            함수 DrawChInPlaygroundWithFence2()와 아래 나열되는 3개의 Array들을 이용해 Fence와 '@'를 print 할 경우: </a><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            아래 함수를 호출 할때 plygdRow[]에는 Fence 문자와 Playground 내부에 한개 표시할 문자가 '@' 이미 포함되어 있습니다. <br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            그래서 Playground 전체에서 '@'가 포함된 Line을 Draw 할 때 이 Array plygdRow[]를 console.log()로 Print 하기만 하면 됩니다. <br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            그리고, DrawChInPlaygroundWithFence2() 함수 내부에선 나머지 두 Array중 먼저 pgdTopBottomLine[]에 <br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            Playground의 Top fence와 Bottom fence를 표시 할 수 있게 Fence 문자 '#'들로 채운 뒤 <br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            pgdTopBottomLine[]를 console.log() 함수로 Print 해주면 됩니다.<br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            마지막으로 pgdEmptyLine[]에는 Fence 문자 '#'와 Fence 문자 사이에 Playground의 <br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            빈 공간을 표시할 공백 문자 ' '를 채운 뒤 Playground의 Top fence line과 Bottom fence line <br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            그리고 표시 문자 '@'가 포함된 line을 제외한 모든 라인을 console.log()를 이용해 print합니다. <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            
+                            경계선이 있는 Playground 를 Console 화면에 그리는 함수는 아래와 같습니다: <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            
+                                <mark>DrawChInPlaygroundWithFence2</mark>(plygdRow, row, column, <mark>fence, plygdWidth, plygdHeight</mark>); <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            
+                                여기서 변수 fence, plygdWidth, plygdHeight, 그리고 return 값은 위 Option 1과 동일 하므로 그곳을 참조 하세요.<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            
+                            두개의 Array는 아래의 예제처럼 Global variable로 Define 하여 사용 하세요.
+                            <pre class="cFormat">
+    let pgdTopBottomLine = new Array(PLAYGROUND_MAX_FENCE_WIDTH);
+    let pgdEmptyLine = new Array(PLAYGROUND_MAX_FENCE_WIDTH);
+    function DrawChInPlaygroundWithFence2(char plygdRow[],int row,int column,char fence,int plygdWidth,int plygdHeight) {
+        ...
+    }
+                            </pre>&emsp;&emsp;&nbsp;&nbsp;&nbsp;
+                            위에서 Array 크기로 사용한 PLAYGROUND_MAX_FENCE_WIDTH는 Playground의 Width와 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            그 width를 감싸는 Fence 문자를 포함 할 수 있는 크기여야 하며, 마지막으로 Array의 마지막에 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            할당할 null 문자도 포함 할 수 있는 크기 여야 합니다. 이 Task의 경우 이 값은 33입니다.<br/>
+                   </dd>
+                <dt>22) Optional: Playground 경계선 변경 </dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=22'><br/>&nbsp;
+                         Optional: 키보드에 있는 문자 중 'o'나 'O'자를 제외한 알파벳 문자가 <br/>
+                         입력되면 그 문자로 30 x 15 Playground 경계선을 그리세요.</a><br/><br/>
+                         
+                        아래와 같이 변수 fenceCh를 global 변수로 정의해 사용자가 입력하는 경계선 문자를 저장시키고 <br/>
+                        이 변수에 저장된 값을 경계선 그릴때 사용하세요 <br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                        
+                            <mark> <i style='color:blue;'>let</i> fenceCh = '#'; </mark>
+                </dd> 
+                <dt>23) 'if-else' statement를 'switch-case' statement로 전환 </dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=23'><br/>&nbsp;
+                         이 Task에선 'if-else'를 'switch-case' statement로 전환을 해보세요.<br/>
+                        'if-else'로 비교하는 것이 4개 이상이면, 'if-else' 보다 'switch-case'가 더 <br/>
+                        효율적일 수 있습니다. </a><br/><br/>
+                     
+                        'switch-case' statement의 structure는 초반에 살펴본 'Project를 시작 하며 ...'를 <br/>
+                        참고 하세요. <br/>
+                </dd>
+                <dt>24) Optional: Playground 이동(상/하 좌/우 이동)</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=24'><br/>&nbsp;
+                         Optional: 30 x 15 Playground 의 좌측 위쪽 꼭지점 좌표 값을 X, Y 라 할 때, <br/>
+                        X, Y 값을 증가/감소 시켜 Playground 를 상/하/좌/우로 이동 시켜 보시오.</a><br/><br/>
+                        
+                        단, 1 &lt;= X &lt;= 40, 1 &lt;= Y &lt;= 40.<br/><br/>
+                        각 Function 키가 아래와 같이 동작하게 하세요.<br/>&nbsp;&nbsp;
+                          1. CTRL + LEFT_ARROW 키를 누르를 때 마다 Playground가 좌측으로 1 칸씩 이동.<br/>&nbsp;&nbsp;
+                          2. CTRL + RIGHT_ARROW 키를 누르를 때 마다 Playground가 우측으로 1 칸씩 이동.<br/>&nbsp;&nbsp;
+                          3. CTRL + UP_ARROW 키를 누르를 때 마다 Playground가 위로 1 칸씩 이동.<br/>&nbsp;&nbsp;
+                          4. CTRL + DOWN_ARROW 키를 누르를 때 마다 Playground가 아래로 1 칸씩 이동.<br/><br/>&nbsp;&nbsp;
+                          
+                        
+                          5. Shift + LEFT_ARROW 키를 누르를 때 마다 Playground가 좌측으로 5 칸씩 이동. <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             좌측 공간이 5보다 작을땐 좌측에 playground를 밀착하기. <br/>&nbsp;&nbsp;
+                          6. Shift + RIGHT_ARROW 키를 누르를 때 마다 Playground가 우측으로 5 칸씩 이동.<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             우측 이동 공간이 5칸 미만 일때 최대한 우측으로 붙이기. <br/>&nbsp;&nbsp;
+                          7. Shift + UP_ARROW 키를 누르를 때 마다 Playground가 위로 5 칸씩 이동. <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             위쪽에 이동할 공간이 5보다 작을 때엔 나머지 공간을 모두 이동해 위에 붙이기. <br/>&nbsp;&nbsp;
+                          8. Shift + DOWN_ARROW 키를 누르를 때 마다 Playground가 아래로 5 칸씩 이동. <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             아래쪽에 이동 공간이 5칸 보다 작을땐 바닦에 붙이기. <br/><br/>
+                        
+                        Playground의 좌측 위쪽 꼭지점 X,Y를 배열 <span style='color:blue'>let</span> spaceXY = [0, 0];로 정의해 사용 하세요. <br/>
+                        이때 spaceXY[0]는 X 좌표값, spaceXY[1]은 Y 좌표값을 보관 하는데 사용하세요.<br/><br/>
+                        
+                        자리가 이동된 'Fence 없는 Playground' 를 Console 화면에 그리는 함수를 아래와 같이 정의해 사용하세요: <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                        
+                            <mark>DrawCharacterInShiftedPlaygd</mark>(plygdRow, row, column, <mark>spXY</mark>); <br/>&emsp;&emsp;&emsp;
+                               &lpar;where both 'plygdRow' and 'spXY' are array &rpar;<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            
+                            여기서 사용된 Argument들은 마지막 Argument spXY를 제외하면, 앞서 언급 된 적 있는 <br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            DrawCharacterInPlayground 함수에서 설명된 것과 동일한 기능을 하게 됩니다. <br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            마지막 Argument인 Array spXY는 spaceXY 값을 넘겨주기 위한 변수로써, <br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            위에서 설명한 (X,Y)와 (spXY[0], spXY[1])로 1:1 대응되는 기능을 합니다. <br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            즉 Playground의 행과 열이 얼만큼 이동 되었는지 를 알려주는 값을 갖게 됩니다.  <br/><br/>
+                        
+                        자리가 이동된, 경계선(Fence)이 있는 Playground 를 Console 화면에 그리는 함수는 아래와 같이 정의해 사용하세요: <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                        
+                            <mark>DrawChInShiftedPlaygdWithFence</mark>(plygdRow, row, column, fence, plygdWidth, plygdHeight, <mark>spXY</mark>); <br/>&emsp;&emsp;&emsp;
+                                &lpar;여기서 'plygdRow' 와 'spXY'는 array 이고, 'row'와 'column' 는 각각 표시 문자의 x, y 좌표값 이다&rpar;<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            여기서 사용된 Argument들의 용도는 앞서 설명한 함수 DrawChInPlaygroundWithFence와 <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                            DrawCharacterInShiftedPlaygd를 참조 하면 됩니다.<br/>
+                </dd>            
+                <dt>25) TEST: Up/Down/Left/Right key 연속 동작 Test (Optional)</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=25'><br/>&nbsp;
+                         Up/Down/Left/Right key를 자유롭게 누르며 @의 움짐임을 관찰해 보시오.<br/>
+                        해당 문자가 30 x 15 Playground 밖으로 이동 한다면, 내부에서 만 움직이게 하세요.<br/></a>
+                </dd>            
+                <dt>26) Optional: Playground 크기 변경</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=26'><br/>&nbsp;
+                         Optional: 30 x 15 Playground 의 크기가 아래 나열된 Function Key 들에 의해 <br/>
+                        커지 거나 작아지게 하세요.</a><br/><br/>
+                        
+                        특히 경계선이 줄어 들면서 '@' 문자가 표시된 위치 보다 좁아지면, <br/>
+                        '@'도 경계선에 맞 닿은 채로 을 따라 같이 움직여야 합니다. <br/><br/>
+                        
+                        단, Playground 크기 범위는 1 &lt;= Width &lt;= 60, 1 &lt;= Height &lt;= 30.<br/><br/>
+                        각 Function 키가 아래와 같이 동작하게 하세요.<br/>&nbsp;&nbsp;
+                          1. ALT + LEFT_ARROW 키를 누르를 때마다 Playground가 Width가 1 칸씩 줄어듬.<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             (마치 Playground 오른쪽 경계선이 한 칸씩 좌측으로 밀리 듯이 줄어 듬) <br/>&nbsp;&nbsp;
+                          2. ALT + RIGHT_ARROW 키를 누르를 때마다 Playground가 Width 1 칸씩 늘어남.<br/>&nbsp;&nbsp;
+                          3. ALT + UP_ARROW 키를 누르를 때마다 Playground가 Height가 1 칸씩 줄어듬.<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             (마치 Playground 아래 경계선이 한 칸씩 위로 올라 오듯 줄어 듬) <br/>&nbsp;&nbsp;
+                          4. ALT + DOWN_ARROW 키를 누르를 때마다 Playground가 Height가 1 칸씩 늘어남.<br/>&nbsp;&nbsp;
+                             (마치 Playground 아래 경계선이 한 칸씩 아래로 내려 가듯 늘어 남) <br/><br/>&nbsp;&nbsp;
+                        
+                          5. CTRL + ALT + LEFT_ARROW 키를 누르를 때마다 Playground의 Width와 Height이 동시에 1 칸씩 줄어듬.<br/>&nbsp;&nbsp;
+                          6. CTRL + ALT + RIGHT_ARROW 키를 누르를 때마다 Playground가 Width와 Height이 동시에 1 칸씩 늘어남.<br/>&nbsp;&nbsp;
+                          7. CTRL + ALT + UP_ARROW 키를 누르를 때마다 Playground가 Width와 Height이 동시에 5 칸씩 줄어듬.<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             줄일 공간이 5칸씩 남지 않았을 땐 1칸만 남겨 두고 모두 줄이기. <br/>&nbsp;&nbsp;
+                          8. CTRL + ALT + DOWN_ARROW 키를 누르를 때마다 Playground가 Width와 Height이 동시에 5 칸씩 늘어남.<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             5칸 이상 넓일 수 없을 땐 넓일 수 있는 최대 한도 까지만 넓이기. <br/>
+                          
+                </dd>            
+                <dt>27) Optional: Special Function Key List</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=27'><br/>&nbsp;
+                         Optional: F1 키를 눌렀을 때 다음과 같은 Help menu가 프린트 하세요. </a><br/><br/>
+                        * A list of special Function Keys:<br/>&nbsp;&nbsp;
+                          ===========================================================================<br/>&nbsp;&nbsp;
+                          1) F1: Help. It lists a list of special function keys.<br/>&nbsp;&nbsp;&nbsp;
+                          2) CTRL + LEFT_ARROW: Move the playground left by one line.<br/>&nbsp;&nbsp;&nbsp;
+                          3) CTRL + RIGHT_ARROW: Move the playground right by one line.<br/>&nbsp;&nbsp;&nbsp;
+                          4) CTRL + UP_ARROW: Move the playground up by one line.<br/>&nbsp;&nbsp;&nbsp;
+                          5) CTRL + DOWN_ARROW: Move the playground down by one line.<br/><br/>&nbsp;&nbsp;&nbsp;
+                          
+                        
+                          6) Shift + LEFT_ARROW: Move the playground left by 5 lines.<br/>&nbsp;&nbsp;&nbsp;
+                          7) Shift + RIGHT_ARROW: Move the playground right by 5 lines.<br/>&nbsp;&nbsp;&nbsp;                     
+                          8) Shift + UP_ARROW: Move the playground up by 5 lines.<br/>&nbsp;&nbsp;&nbsp;
+                          9) Shift + DOWN_ARROW: Move the playground down by 5 lines.<br/><br/>&nbsp;&nbsp;&nbsp;
+                          
+                          
+                          10) ALT + LEFT_ARROW: Shrink the playground width by one line.<br/>&nbsp;&nbsp;
+                          11) ALT + RIGHT_ARROW: Expand the playground width by one line.<br/>&nbsp;&nbsp;
+                          12) ALT + UP_ARROW: Shrink the playground height by one line.<br/>&nbsp;&nbsp;
+                          13) ALT + DOWN_ARROW: Expand the playground height by one line.<br/><br/>&nbsp;&nbsp;
+                        
+                          14) CTRL + ALT + LEFT_ARROW: Shrink both the width and height of the playground by one line.<br/>&nbsp;&nbsp;
+                          15) CTRL + ALT + RIGHT_ARROW: Expand both the width and height of the playground by one line.<br/>&nbsp;&nbsp;
+                          16) CTRL + ALT + UP_ARROW: Shrink both the width and height of the playground by 5 lines.<br/>&nbsp;&nbsp;
+                          17) CTRL + ALT + DOWN_ARROW: Expand both the width and height of the playground by 5 lines.<br/>&nbsp;&nbsp;                          
+                          18) 'o': Toggle the fence of playground between show and hide.<br/>&nbsp;&nbsp;
+                          ===========================================================================<br/>
+                </dd>            
+                <dt>28) TEST: Up/Down/Left/Right/Special key 연속 Test (Optional)</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=28'><br/>&nbsp;
+                         Optional: Playground의 위치를 이동 시키거나 크기를 변경해도 <br/>
+                        Up/Down/Left/Right key로 내부에서 이동 시키는 문자는 playground <br/>
+                        범위를 벋어 나지 않고, Bug 없이 잘 동작 하는지 확인 하세요. </a><br/>
+                        특히 Playground 확대/축소시 fence의 경계선이 playground 안에 있는 <br/>
+                        문자와 만나면 fence의 의해 안쪽으로 밀려야 함.<br/><br/>
+                </dd>
+                <dt>29) Project Demo</dt><dd>    
+                    <a class="prj" href='movingCh_II_Exe.htm?prj=1&id=29'><br/>&nbsp;
+                         이 곳에선 완성된 Project를 보여 줍니다. Project 선택 전 완성된 Project를<br/>
+                        실행해 봄으로써, 배우는 사람에게 적합한지, 또는 흥미를 끄는 내용인지 확인 할 수 <br/>
+                        있도록 해줍니다.</a><br/>
+                        
+                        Arrow Key들로 문자 '@'를 30 x 15 직사각형 안에서 이동 시킬 수 있습니다. <br/>
+                        또한 F1 key를 누르면, 어떤 추가 기능들을 지원하는지 설명하고 있으니 살펴 보길 추천 합니다. <br/>
+                </dd>
+            </dl>
+        </div>
+        <div id="invadingCh" hidden>
+            <b><mark>A-3. Game Project: Invading characters</mark></b><br/>
+                
+            <br/>
+            <b style='color:blue'>Under Construction ...</b>
+        </div>
+    </section>
+    </body>

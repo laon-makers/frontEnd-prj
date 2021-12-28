@@ -1,3 +1,11 @@
+/*  Copyright (C) 2024 Gi Tae Cho laon.makers@yahoo.com
+    This file is a part of the Smart Home WiFi Web Server project.
+    This project can not be copied and/or distributed without the express permission of Gi Tae Cho laon.makers@yahoo.com.
+
+    Author: G.T. Cho (a Laon maker/artist in Laon Creators' Group)
+    Version: 1.0
+    Last update: Dec. 27, 2021
+*/
 let xPrjNames = [];
 let yPrjProgress = [];
 let prjChartColors = [];
@@ -37,10 +45,10 @@ let dashbdChart = new Chart("dashboardChart", {
     },
     options: {
         legend: { display: false },
-        title: {
-            display: true,
-            text: "Each Project Status (%)",
-        },
+        // title: {
+        //     display: true,
+        //     text: "Each Project Status (%)",
+        // },
     },
 });
 
@@ -54,12 +62,16 @@ let prjHourChart = new Chart("projectHourChart", {
       }]
     },
     options: {
-      title: {
-        display: true,
-        text: "Each Project's Work Hours"
-      }
+      legend: {position:'bottom'},
+    //   title: {
+    //     display: true,
+    //     // fontSize: 25,
+    //     // padding: 15,
+    //     // fontColor: 'blue',
+    //     text: "Each Project's Work Hours"
+    //   }
     }
-  });
+});
 
   let wTypeChart = new Chart("workTypeChart", {
     type: "pie",
@@ -71,12 +83,22 @@ let prjHourChart = new Chart("projectHourChart", {
       }]
     },
     options: {
-      title: {
-        display: true,
-        text: "Hours of Dashboard Project's Work Type"
-      }
+      legend: {position:'bottom'},
+    //   title: {
+    //     display: true,
+    //     text: "Hours of Dashboard Project's Work Type"
+    //   },
+    //   layout: {
+    //       padding: {
+    //           left: 0,
+    //           right: 0,
+    //           top: 50,
+    //           bottom: 0
+    //       }
+    //   }
     }
-  });
+
+});
 
 function getProjectWorkHours(prjIx) {
     let sum = 0;
@@ -125,6 +147,7 @@ function chgPrjColor() {
 
     prjChartColors[i] = tmp;
     dashbdChart.update();
+    prjHourChart.update();
 }
 
 function shiftProjectStatus(chartIdName) {
@@ -145,11 +168,13 @@ function shiftProjectStatus(chartIdName) {
     yPrjProgress[i] = tmpY;
     prjChartColors[i] = tmpC;
     yPrjHours[i] = tmpH;
-    if( chartIdName == 'dashboardChart' ) {
-        dashbdChart.update();
-    } else {
-        prjHourChart.update();
-    }
+    // if( chartIdName == 'dashboardChart' ) {
+    //     dashbdChart.update();
+    // } else {
+    //     prjHourChart.update();
+    // }
+    dashbdChart.update();
+    prjHourChart.update();
 }
 
 function updatePrjHour() {

@@ -1,0 +1,97 @@
+/*  Copyright (C) 2024 Gi Tae Cho laon.makers@yahoo.com
+    This file is a part of the Smart Home WiFi Web Server project.
+    This project can not be copied and/or distributed without the express permission of Gi Tae Cho laon.makers@yahoo.com.
+
+    Author: G.T. Cho (a Laon maker/artist in Laon Creators' Group)
+    Version: 1.0
+    Last update: Dec. 27, 2021
+*/
+/*주의!: style element안에 주석 달때 '//'는 허용안됨.*/
+dt{
+    padding:6px 10px 6px;
+    width: 1100px;
+    /*background:#eee;*/
+    background:#9ACD32;
+    margin:0 0 3px;
+    font-weight:bold;
+    border-left:2px solid #444;
+    border-top:2px solid #444;
+    border-radius:8px 0 0 0;
+    font-size: 20px;
+}        
+dt.closed{
+    cursor:pointer;
+    color:#fff;
+    background:#444 url(..\\img\\education.png) repeat-y 100% 0;    
+}
+
+dd {
+    padding:0px 10px 12px 40px;
+    width:1070px;
+    border-left:2px solid #444;
+    background:#eee;
+    /*background:#fafad2;*/
+    /*background:#F5F5DC;*/
+    margin:-3px 0 3px;
+    font-weight:bold;
+    font-size: 17px;
+}
+dd.closed{
+    display:none;
+}
+
+a.prj:link { text-decoration: none; }
+a.prj:visited { text-decoration: none; }
+/* a.prj:active { color: mediumblue; }*/
+
+a.prj:hover { 
+    color: indigo; 
+    background-color: gold;
+    text-decoration: underline;
+}
+
+kwd{
+    color: #0000FF;
+}
+cmt{
+    color: #008000;
+    font-style: italic;
+    font-weight: normal;
+}
+pgreen{
+    color: green;
+}
+pred{
+    color: red;
+}
+
+header {
+    background-color:black;
+    color:white;
+    text-align:center;
+    padding:1px;	 
+}
+nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:1600px;
+    width:100px;
+    float:left;
+    padding:5px;	      
+}
+nav a.sel {
+    background:#9ACD32;
+}
+section {
+    /*width:1200px;*/
+    float:left;
+    padding:10px;	 	 
+}
+footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px;	 	 
+}
+    
