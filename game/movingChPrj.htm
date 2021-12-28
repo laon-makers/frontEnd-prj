@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <script src="..\js\jquery-3.6.0.min.js" type="text/javascript"></script>
+    <script src="..\js\project.js" type="text/javascript"></script>    
+    <link type="text/css" rel="stylesheet" href="..\css\movingChPrj.css"/>
+</head>
+<body>
+    <h1>Moving Characters</h1>
+    <!--div id="playground"><pre id="plygnd"></pre></div-->
+    <p>Welcome to Laon Makers' Playground !</p><br/><br/>
+    <pre></pre><div id="playground"></div></pre>
+    <div><i>The number of printed characters: </i><span id='numChar' style="font-size: large;background-color: yellow;">0</span></div>
+    <div id='pgStatus' hidden>Bottom: <span id='pgsBottom'>0</span>&emsp;&emsp;Hit: <span id='pgsHit'>0</span>&emsp;&emsp;WrongHit: <span id='pgsWrong'>0</span>&emsp;&emsp;Gen: <span id='pgsGen'>0</span></div>
+    <!--button type="button" onclick="resetMovingCh(0)">Start</button-->
+    <br/>
+    <button type="button" onclick="movingCh(0)">Start</button> 
+    <button type="button" onclick="nextMovingCh()">Next</button>
+    <select id="solId">
+        <option> -- Select a Solution # --</option>
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+        <option>11</option>
+    </select>   
+    <button type="button" onclick="selectedMovingCh()">Run Slected Solution</button>
+    <button type="button" onclick="clearMsgBoard()">Clear Message Board</button>
+    <input id='movingChReq' type='text' onchange="movingChReq()" hidden></input>
+    <script type='text/javascript' src='..\js\movingChPrj.js'></script>    
+</body>
+
+</html>

@@ -1,3 +1,7 @@
+/*  Author: Laon Maker (Laon Creators' Group)
+    Version: 1.0
+    Last update: Dec. 27, 2021
+*/
 let xPrjNames = [];
 let yPrjProgress = [];
 let prjChartColors = [];

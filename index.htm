@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!--
+    Author: Laon Maker (Laon Creators' Group)
+    Version: 1.0
+    Last update: Dec. 27, 2021
+ -->
 <html lang="en">
 
 <head>
@@ -23,35 +28,24 @@
       <a href="dashboard.htm">GoTo Dashboard</a><br /><br/><br/>
     </div>
     <hr />
+    &nbsp;
+    <b style=' color: blue; font-size: 25px;'>Game Project</b>
+    <hr/>
+    <div style='padding-left: 20px;'>
+      <b>This Game Project is a tutorial to teach how to make a fun game 'Invading Characters'.
+         It consists of many sub-projects which will guide you to the final game.</b><br/><br/>
+      <p><i>Click following link to get there:</i></p>
+      <a href="game/movingChar.htm">GoTo Game Project</a><br /><br/><br/>
+    </div>
+    <hr />
     <div style='padding-left: 20px;'>
       <i><label for="stPw">Password: </label><input type='password' id='stPw' style='width: 100px;'></input>&emsp;<button type='button'
-          onclick="jumpToStatus()"><i>Validate</i></button></i>&ensp;
+          onclick="gotoToStatus('data/s:_data')"><i>Validate</i></button></i>&ensp;
       <a id='toStatus' href="#" hidden>GoTo Front End Developer's Status</a>
       <i id='msg' style='color:red;'>&nbsp;</i><br/><br/>
       <i style='font-size: small;'>Laon Makers' index revision: 1.1. Last Updated: Dec. 26, 2021</i>
     </div>
-    <script>
-      function jumpToStatus() {
-        let f = document.getElementById('stPw').value.trim();
-        let jp = document.getElementById('toStatus');
-        
-        //jp.prop('href', f);
-        if (f[0] == '.' && (f.search('_') == (f.length - 1))) {
-          let arr = [];          
-          for( let i = 1; i < (f.length - 1); i++) {
-            let hex = Number(f.charCodeAt(i)).toString(16).toUpperCase();
-            arr.push(hex);
-          }
-          //arr.join('');
-          f = 's' + arr.toString().replaceAll(',','') + '_data.htm';
-          jp.setAttribute("href", f + "?valid=true");
-          jp.hidden = false;
-          document.getElementById('msg').textContent = "";
-        } else {
-          document.getElementById('msg').textContent = "Invalid !";
-        }
-      }
-    </script>
+    <script src='js/index.js'></script>
     <hr />
   </div>
 </body>
