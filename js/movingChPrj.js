@@ -45,6 +45,7 @@ if( arg.length > 1 ) {
         if( arg.length > 1 ) {
             solIndex = parseInt(arg[1]);
             document.getElementById('solId').selectedIndex = solIndex + 1;
+            setTimeout(selectedMovingCh, 1000);
         }
     }
 }
