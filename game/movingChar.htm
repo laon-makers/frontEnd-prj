@@ -17,20 +17,22 @@
     <script src="..\js\project.js" type="text/javascript"></script>    
     <!--script src=".\web\.movingCh.js" type="text/javascript"></script-->
     <script>
-        var el1 = false;
-        var el2 = false;
-        var lItem = 0;
-        var lIx = 0;
+        let el1 = false;
+        let el2 = false;
+        let lItem = 0;
+        let lIx = 0;
+
         function showElement(item) {        
             if( item < 0 ) {
-                var lId;
-                var id;
-                var ix = item * -1;
+                let lId;
+                let id;
+                let ix = item * -1;
                 
                 if(item !== lItem) {
                     switch(lItem) {
                     case -1:    lId = "#moveChI";      break;
                     case -2:    lId = "#moveChArryI";  break;
+                    case  0:    document.getElementById('dtGoal').hidden = true;
                     }
                 }
                 
@@ -92,7 +94,7 @@
     <hr>
     <div id="moveChI" hidden> 
         <b><mark>I-1. 문자 이동 I</mark></b><br/><br/>&nbsp;
-         이 Task는 한 개의 문자를 지정된 직사각형(30자리x15자리) 내부에서 만 프린트 되게 하는 것이다.<br/>
+        이 Task는 한 개의 문자를 지정된 직사각형(30자리x15자리) 내부에서 만 프린트 되게 하는 것이다.<br/>
         이 과정을 통해 For/While loop, if statement에 대한 깊이 있는 이해와 활용법을 배우게 된다.<br/>
         또한 함수와 그 사용에 대한 실전 연습과 이해력을 돕게 된다.<br/><br/>        
         <hr>   
@@ -133,8 +135,14 @@
             default: break;
             }
         }
-                </pre>
+                </pre><br/>
                     
+                * <span style='color:red;'>주의</span>:<br/>&emsp;
+                    이 Project의 각 문제에서 키보드 키를 입력 하라는 설명이 있는데,<br/>&emsp;
+                    <mark>키를 입력 후 반드시 'Enter'키를 눌러줘야</mark> 한다.<br/>&emsp;
+                    각 문제에 대한 설명을 간결 하게 하기 위해 이 'Enter'키에 대한<br/>&emsp;
+                    설명이 생략되는 경우가 있는데,<br/>&emsp;
+                    <mark>키를 입력</mark>하라면 반드시 <mark>마지막에 'Enter'키를 입력</mark> 해야 한다.<br/>                    
             </dd><br/>
             
             <dt><i style="font-size:15px;">Close All</i></dt><dd></dd>
@@ -167,7 +175,7 @@
             
             <dt>3. Program 시작과 동시에 '@' 1개 Print, '+' 또는 '=' Key로 '@' 추가</dt><dd>
                 <a class="prj" href="movingChPrj.htm?prj=0&id=3"><br/>&nbsp;
-                     프로그램 실행과 동시에 한개의 @를 print 하고,<br/>
+                    프로그램 실행과 동시에 한개의 @를 print 하고,<br/>
                     <mark>+</mark> 또는 <mark>=</mark>와 <mark>Enter</mark> key가 눌릴 때 마다<br/>
                     '@'를 하나씩 더 추가해 print 하세요.</a><br/><br/>
                     
@@ -194,17 +202,17 @@
                         7. 만약 '+' 또는 '=' Key가 아닌 <u>다른 Key가 입력 된다면</u><br/>&emsp;&nbsp;&nbsp;&nbsp;
                            변수 <u>'x' 값을 증 가 시키지 않고</u>,<br/>
                            'for' loop가 실행 되게 합니다.<br/>&emsp;&nbsp;&nbsp;&nbsp;
-                           이는 print되는 '@'의 갯수가 이전 것과 같은 수 임을 의미 합니다.<br/>            
+                           이는 print되는 '@'의 갯수가 이전 것과 같은 수 임을 의미 합니다.<br/>
             <dt>4. '+' 또는 '=' Key로 '@' 30개 까지만 Print</dt><dd>
                 <a class="prj" href="movingChPrj.htm?prj=0&id=4"><br/>&nbsp;
                      <mark>+</mark> 또는 <mark>=</mark> 와 <mark>Enter</mark> key를 반복적으로 눌러<br/>
-                    Print되는 '@'가 최대 30개 까지만 print되게 하세요.<br/>
+                     Print되는 '@'가 최대 30개 까지만 print되게 하세요.<br/>
                     30개가 됐을 때 키를 다시 눌러도 더 이상 Print되는 문자 갯수가<br/>
                     증가하면 안됩니다.</a><br/><br/>
                      
                     Instructions:<br/>&emsp;
                         1. <b style="color:blue">let</b> plygdWidth = 30; 을 정의한다.<br/>&emsp;
-                        2. '@'가 30개 인지 검사할 때 이 변수 'plygdWidth' 를 사용한다.<br/><br/>                        
+                        2. '@'가 30개 인지 검사할 때 이 변수 'plygdWidth' 를 사용한다.<br/><br/>
             </dd>
             <dt>5. '-' Key로 '@' 갯 수 줄이기</dt><dd>    
                 <a class="prj" href="movingChPrj.htm?prj=0&id=5"><br/>&nbsp;
@@ -240,7 +248,7 @@
                     한번 더 누르면 '@'가 1개만 print되게 하고,<br/>
                     반복해서 다시 누르면 Print되는 문자의 갯수가<br/>
                     매번 1개씩 증가하게 하세요.<br/>
-                    계속 증가해 다시 30개가 되면 위 동작이 반복하게 합니다.<br/></a>                   
+                    계속 증가해 다시 30개가 되면 위 동작이 반복하게 합니다.<br/></a>
                      
             </dd>
             <dt>9. '+' Key 연속 동작 Test</dt><dd>    
@@ -303,7 +311,8 @@
             - prompt();
             - console.log("");
             - console.clear();
-            - document.addEventListener(type, listener);
+            - Array.join('');
+            - String.trim();
         Key words:
             - if(), else()
             - for()
@@ -327,36 +336,46 @@
             default: break;
             }
         }
-                </pre>
+                </pre><br/>
+
+                * <span style='color:red;'>주의</span>:<br/>&emsp;
+                    이 Project의 각 문제에서 키보드 키를 입력 하라는 설명이 있는데,<br/>&emsp;
+                    <mark>키를 입력 후 반드시 'Enter'키를 눌러줘야</mark> 한다.<br/>&emsp;
+                    각 문제에 대한 설명을 간결 하게 하기 위해 이 'Enter'키에 대한<br/>&emsp;
+                    설명이 생략되는 경우가 있는데,<br/>&emsp;
+                    <mark>키를 입력</mark>하라면 반드시 <mark>마지막에 'Enter'키를 입력</mark> 해야 한다.<br/>
                     
             </dd><br/><br/>
             <dt><i style="font-size:15px;">Close All</i></dt><dd></dd>
-            <dt>1) 문자 '@' Print</dt><dd>
+            <dt>1) 문자 '@' Print (1개)</dt><dd>
                 <a class="prj" href="movingChPrj.htm?prj=1&id=1"><br/>
                     1) 키보드의 키를 누를 때 마다 '@' 문자를 한 개씩 Print 하세요.</a><br/><br/> &nbsp;
                     
                      아래 예제 코드를 수정해 이번 Small Task를 완성하는 것입니다.<br/>
                     완성된 코드는 '@'를 각 줄의 첫 번째 자리에만 print되게 하고, <br/>
-                    Keyboard에서 User key 입력을 받을 땐 아래와 같이 getch() <br/>
-                    함수를 사용하며, printf로 문자 '@'를 print할 때에도 해당 문자를 <br/>
-                    바로 print하는 것이 아니라, 정해진 Array의 해당 위치에 '@'를 <br/>
-                    저장한 뒤 그 Array를 Print 하는 것입니다. <br/><br/><i>
+                    Keyboard에서 User key 입력을 받을 땐 아래와 같이 prompt() <br/>
+                    함수를 사용하며, console.log()로 문자 '@'를 print할 때에도 해당 문자를 <br/>
+                    바로 print하는 것이 아니라,<br/>
+                    정해진<mark> Array의 해당 위치에 '@'를 저장</mark>한 뒤 그 Array를 Print 하는 것입니다. <br/><br/><i>
                     <pre class="cFormat">
     
     function moveChArray1()
     {   
-        let playgroundActiveRow[31];
+        let playgroundActiveRow = new Array(30);
         let c;
         
-        console.log(" 2 4 6 8 0 2 4 6 8 0 2 4 6 8 0\n"); // Print된 '@'의 갯 수를 쉽게 셀 수 있도록 하기 위한 코드.
+        for( let i = 0; i < 30; i++) {
+            // clear each element of the array with a space character ' '.
+            ...
+        }
         
         playgroundActiveRow[0] = '@';
-        playgroundActiveRow[1] = '\0';
         ...
         
-        c = getch();
-            
-        console.log(playgroundActiveRow);
+        c = prompt();
+
+        ...
+        console.log(playgroundActiveRow.join(''));
     }
     
     function movingCharArray(taskId)
@@ -372,70 +391,92 @@
             </dd>
             <dt>2) '+' Key를 누를 때만 '@' 1개 print</dt><dd>
                 <a class="prj" href="movingChPrj.htm?prj=1&id=2"><br/>&nbsp;
-                     '+'를 누를 때 만 @가 하나 Print 되게 하고, 그 이외의 key를 누르면 아무 것도 print되지 않게 하세요.</a><br/>
-                    '@'를 Print할 때는 항상 Array 변수인 playgroundActiveRow를 이용해 print해야 함을 잊지 않도록 합니다.
+                     '+' 또는 '=' 키를 누를 때 만 @가 하나 Print 되게 하고,<br/>
+                    그 이외의 key를 누르면 아무 것도 print되지 않게 하세요.</a><br/><br/>
+                    
+                    * 주의: '@'를 Print할 때는 항상 Array 변수인 playgroundActiveRow를 이용해 print해야 함을 잊지 않도록 합니다.
             </dd>
             
             <dt>3) Program 시작과 동시에 '@' 1개 Print, '+' Key로 '@' 추가</dt><dd>
                 <a class="prj" href="movingChPrj.htm?prj=1&id=3"><br/>&nbsp;
-                     프로그램 실행과 동시에 한개의 @를 print 하고, '+' key가 눌릴 때 마다 '@'를 <br/>
-                    하나씩 더 증가해 print 하세요.</a><br/><br/>
-                    단 다른 키를 누르면 이전에 프린트 했던 수와 동일한 수의 '@'를 Print해야 합니다.<br/><br/>
+                     프로그램 실행과 동시에 한개의 @를 print 하고,<br/>
+                    '+' 또는 '=' key가 눌릴 때 마다 <br/>
+                    '@'를 하나씩 더 증가해 print 하세요.<br/>
+                    단 다른 키를 누르면 이전에 프린트 했던 수와 동일한 수의 '@'를 Print해야 합니다.</a><br/><br/>
                        
                        Instructions: <br/>&nbsp;&nbsp;&nbsp;&nbsp;
                         1. "let x = 1;"를 정의 합니다. <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
                         2. Project를 실행 시키자 마자 '@' 1개가 Print 되게 합니다. <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                            '@' print할 때엔 항상 Array 변수인 playgroundActiveRow를 이용해 print해야 함을 잊지 않도록 합니다. <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
                         3. User가 '+' key를 누를 때 마다 '@' 1개를 Array 변수 playgroundActiveRow[x]에 저장 합니다. <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                           여기서 사용된 변수 'x'는 앞서 정의한 integer 변수 입니다. <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                           여기서 사용된 변수 'x'는 앞서 "let x = 1;"로 정의했던 변수 입니다. <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
                         3. '@' 1개를 Array 변수 playgroundActiveRow[x]에 저장한 뒤엔 항상 변수 'x'를 1씩 증가 시킵니다. <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                            즉, 최초로 '+' key를 누르면 '@' 가 playgroundActiveRow[1]에 저장되고, <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                            두번째 누르면 '@'를 playgroundActiveRow[2]에, 이어서 또 '+' key를 누르면, <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                            playgroundActiveRow[3]에 저장되게 되는 것입니다. <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
                         4. '@' 1개를 앞서 설명 한 것 처럼 Array 변수 playgroundActiveRow[x]에 저장할 때마다,  <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             저장 직 후 바로 Array playgroundActiveRow에 저장 했던 모든 값들을 Print합니다. <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
-                        5. User '+' Key를 한번 누를때 '@' 1개가 Array 변수 playgroundActiveRow[x]에 저장 되고, <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        5. User가 '+' Key를 한번 누를 때 '@' 1개가 Array 변수 playgroundActiveRow[x]에 저장 되고, <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                            이어서, 저장된 값들이 print된 후 변수 'x'가 1 증가 하는 것이 잘 동작 한다면, <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                            이 과정이 '+' key가 눌릴 때마다 반복되게 코드를 수정 합니다. <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;
                         6. 만약 '+' Key가 아닌 다른 키가 입력 되면 변수 'x' 값을 증 가 시키지 않고, <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                            playgroundActiveRow에 저장됐던 값들을 모두 Print 하게 하세요. <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                            즉 print되는 @ 갯수가 Key가 눌리기 이전 갯 수와 동일한 수가 되는 것입니다.<br/>
             </dd>
-            <dt>4) '+' Key로 '@' 30개 까지만 Print</dt><dd>
+            <dt>4) '+' 또는 '=' Key로 '@' 30개 까지만 Print</dt><dd>
                 <a class="prj" href="movingChPrj.htm?prj=1&id=4"><br/>&nbsp;
-                     '@'를 30개 print 한 뒤, '+' 키를 눌러도 '@'의 갯 수가 증가하지 않고 30개 만 Print 되게 하세요.</a><br/><br/>
-                    let plygdWidth = 30; 을 정의하고, '@'가 30개 인지 검사할 때 이 변수 'plygdWidth' 를 사용하세요.<br/>
+                     '@'를 최대 30개 까지만 print 되게 하세요.<br/>
+                    이 코드가 완성 되면, @ 문자 30개가 print 되도록 '+' 키를 반복 적으로 누른 후,<br/>
+                    다시 '+' 키를 누르면 print되는 '@'의 갯 수가 더 이상 증가하지 않습니다.</a><br/><br/>
+                    <span style='color: blue;'>let</span> plygdWidth = 30; 라는 변수를 정의하고, 이 변수를 활용해 '@'가 30 이상 print 되지 않게 하세요.<br/>
             </dd>
             <dt>5) '-' Key로 '@' 갯 수 줄이기</dt><dd>    
                 <a class="prj" href="movingChPrj.htm?prj=1&id=5"><br/>&nbsp;
-                     '@'를 30개 print 한 뒤, '-' 키를 누르면 누를 때마다 '@'의 갯수가 1개씩 줄어들게 하세요.</a><br/><br/>
-                     '@'가 1개 남았을 때 '-' Key를 2회 이상 눌러도 Program이 Error에 의해 Crash(종료) 되면 안됨.<br/>
+                     '@'가 1개 이상 print 됐을 때, <br/>
+                    '-' 키를 누르면 누를 때마다 '@'의 갯수가 1개씩 줄어들게 하세요.<br/>                    
+                    '@'가 1개 남았을 때 '-' Key를 한번 더 누르면 '@'가 더 이상<br/>
+                    print되지 않게 합니다. 이때 '-' key를 더 눌러도 Program이<br/>
+                    Error에 의해 Crash(종료) 되면 안됩니다.</a><br/>
             </dd>
             <dt>6) '-' Key로 '@' 가 1개 까지만 남게 줄이기</dt><dd>    
                 <a class="prj" href="movingChPrj.htm?prj=1&id=6"><br/>&nbsp;
-                     '@'가 1개만 print 되게 한 후, 다시 '-' 키를 추가로 눌러도 '@'가 여전히 1개만 Print되게 하세요.</a><br/>
+                     '@'가 1개만 print 되게 한 후,<br/>
+                    다시 '-' 키를 추가로 눌러도 '@'가<br/>
+                    여전히 1개만 Print되게 하세요.</a><br/>
             </dd>
             <dt>7) 연속 동작 Test</dt><dd>    
                 <a class="prj" href="movingChPrj.htm?prj=1&id=7"><br/>&nbsp;
-                     위 1번부터 6번까지 Random 하게 연속 동작으로 실행 시킬 때 정상 동작 하는지 Test후, 문제 발생시 Debugging 하세요.</a><br/>
+                     다양한 키를 입력해 지금까지 작성한 코드가 문제없이 잘 동작하는지<br/>
+                    연속 동작으로 테스트 합니다. 즉, '+', '-', 및 다른 키들을 Random하게 입력해<br/>
+                    정상 동작 하는지 Test 해 보고, 만약 문제가 별견되면 Debugging 하세요.</a><br/>
             </dd>
-            <dt>8) '@'가 30개일 때 '+' Key로 1개 Print</dt><dd>    
+            <dt>8) '@'가 30개일 때 '+' Key 누르면 1개만 Print하게 하기</dt><dd>    
                 <a class="prj" href="movingChPrj.htm?prj=1&id=8"><br/>&nbsp;
-                     @가 30개 print되게 한 뒤 '+' 키를 한번 더 누르면 @가 1개만 print되게 하세요.<br/></a>
+                     @가 30개 print되게 한 뒤 '+' 키를 한번 더 누르면<br/>
+                    @가 1개만 print되게 하세요.<br/>
+                    '+'를 반복적으로 더 누른다면, 누를 때마다 '@'가<br/>
+                    1개씩 증가하며 print돼야 합니다.</a><br/>
             </dd>
             <dt>9) '+' Key 연속 동작 Test</dt><dd>    
                 <a class="prj" href="movingChPrj.htm?prj=1&id=9"><br/>&nbsp;
-                     위와 같이 @가 30개 print 됐을 때 '+' 키를 한 번 눌러 @가 1개만 print 되게 한 뒤,<br/>&nbsp;&nbsp;&nbsp;
-                       다시 '+' 키를 누르면, 누를 때마다 @가 한 개씩 증가 하는지 확인하고, 그렇지 않으면 Debugging 하세요.<br/></a>
+                     위와 같이 @가 30개 print 됐을 때<br/>
+                    '+' 키를 한 번 눌러 '@'가 1개만 print 되게 한 뒤,<br/>
+                    다시 '+' 키를 누르면, 누를 때 마다 @가<br/>
+                    한 개씩 증가 하는지 연속 동작으로 여러번 Test 하고,<br/>
+                    만약 문제가 발견 되면 Debugging 하세요.</a><br/>
             </dd>
-            <dt>10) '@'가 한개 남았을 때 '-' Key 30개 Print</dt><dd>    
+            <dt>10) '@'가 한개 남았을 때 '-' Key를 누르면 30개 Print</dt><dd>    
                 <a class="prj" href="movingChPrj.htm?prj=1&id=10"><br/>&nbsp;
-                    10) @가 한개만 print됐을 때, '-' 키를 한번 더 누르면 @가 30개 Print 되게 구현 하세요.</a><br/>
+                     '@'가 한개만 print됐을 때, '-' 키를 한번 더 누르면<br/>
+                    '@'가 30개 Print 되게 구현 하세요.</a><br/>
             </dd>
             <dt>11) 연속 동작 Test</dt><dd>    
                 <a class="prj" href="movingChPrj.htm?prj=1&id=11"><br/>&nbsp;
-                    11) 위와 같이 @가 한개 만 print 됐을 때, '-' 키를 한번 더 눌러 @가 30개 Print 되게 한 뒤,<br/>&nbsp;&nbsp;&nbsp;&nbsp;
-                       다시 '-' 키를 누르면, 누를 때마다 @의 갯수를 한 개 씩 감소 되며 Print 되게 하세요.<br/></a>
+                     위와 같이 @가 한개 만 print 됐을 때,<br/>
+                    '-' 키를 한번 더 누르면 @가 30개 Print 되는지 확인 하고,<br/>
+                    다시 '-' 키를 누르면, 누를 때마다 @의 갯수가 한 개 씩<br/>
+                    감소 되는지 연속 동작으로 테스트 하세요.<br/>
+                    만약 문제가 발견되면 Debugging 하세요.</a>
             </dd>
         </dl>
     </div>    
