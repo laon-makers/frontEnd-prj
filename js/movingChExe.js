@@ -17,7 +17,7 @@ const PLAYGROUND_X_OFFSET_MAX       = 60;
 const PLAYGROUND_Y_OFFSET_MAX       = 30;
 const PLAYGROUND_X_OFFSET_INCREAMENT = 5;
 const PLAYGROUND_Y_OFFSET_INCREAMENT = 5;
-const MAX_MSG_BOARD_LINES            = 16;    // used to clear the message board.
+const MAX_MSG_BOARD_LINES            = 31;    // used to clear the message board.
 
 let projectIx = 0;
 let solIndex = 0;
