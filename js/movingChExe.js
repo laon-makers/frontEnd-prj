@@ -1,7 +1,25 @@
 /*  Author: Laon Maker (Laon Creators' Group)
-    Version: 1.2
-    Last update: Dec. 30, 2021
+    Version: 1.4
+    Last update: Jan. 3, 2022
 */
+const KEY_ENTER         = 0x0D;
+const KEY_0             = 0x30;
+const KEY_A             = 0x41;
+const KEY_a             = 0x61;
+const KEY_EQUAL_OR_PLUS = 0x3D;
+const KEY_MINUS_OR_UNDERSCORE = 0xAD;
+const KEY_ESC           = 0x1B; //27;
+const KEY_SHIFT         = 0x10;
+const KEY_CTRL          = 0x11;
+const KEY_ALT           = 0x12;
+
+const KEY_RIGHT_ARROW   = 0x27;
+const KEY_LEFT_ARROW    = 0x25;
+const KEY_DOWN_ARROW    = 0x28;
+const KEY_UP_ARROW      = 0x26
+// const 'o' = ;
+const KEY_F1        = 0x70;     // Playground location change
+const KEY_F12       = 0x7B;
 
 const bPRINT_ON_CONSOLE = false;  // true: to print characters on the console or when you run this code in VS Code. false: to print characters on the web page (black board) or when you run it with hta file.
 const PRJ_PARAM                     = 5;
@@ -18,6 +36,9 @@ const PLAYGROUND_Y_OFFSET_MAX       = 30;
 const PLAYGROUND_X_OFFSET_INCREAMENT = 5;
 const PLAYGROUND_Y_OFFSET_INCREAMENT = 5;
 const MAX_MSG_BOARD_LINES            = 31;    // used to clear the message board.
+const NOF_SOLUTION                   = 11;
+
+const PLAYGROUND_SPACE_CHAR          = '&emsp;';
 
 let projectIx = 0;
 let solIndex = 0;
@@ -32,7 +53,7 @@ let msgLineCnt = 0;
 let numChar = document.getElementById('numChar');
 let bMessageBoardInitialized = false;
 let numX = 1, inCnt = 0;
-let newKey = 1;
+let newKey = null;
 let pgdActiveLine;
 let pgdTopBottomLine;
 let pgdEmptyLine;
@@ -42,7 +63,7 @@ let bInit = false;
 let bInitF = false;
 
 let movChInterval;
-let keyEvt = {key:'', chCode:'', code: -1, down:false, up:false };
+let keyEvt = {myKey:null, key:'', which:null, ctrl:false, alt: false, shift:false, down:false, up:false };
 
 if( bPRINT_ON_CONSOLE == true ) {
     console.clear();
@@ -117,7 +138,7 @@ function printResultNoCur(m) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-function printResultInArray(ma) {
+function printResultInArray(ma, n) {
     ma = ma.trim();
 
     if( bPRINT_ON_CONSOLE == true ) {
@@ -135,12 +156,12 @@ function printResultInArray(ma) {
         msgBoard.innerHTML = pgndTxt + "_";
 
         if(ma.length == 0) numChar.textContent = '0';
-        else numChar.textContent = ma.length.toString();
+        else numChar.textContent = n.toString();
     }
 }
 
 //////////////////////////////////////////////////////////////////////////////
-function printResultInArrayNoCur(ma) {    
+function printResultInArrayNoCur(ma, n) {
     ma = ma.trim();
 
     if( bPRINT_ON_CONSOLE == true ) {
@@ -158,7 +179,7 @@ function printResultInArrayNoCur(ma) {
         msgBoard.innerHTML = pgndTxt;
 
         if(ma.length == 0) numChar.textContent = '0';
-        else numChar.textContent = ma.length.toString();
+        else numChar.textContent = n.toString();
     }
 }
 
@@ -167,6 +188,7 @@ function resetGame() {
     clearMsgBoard();
     keyEvt.down = true;
     keyEvt.key = '0';
+    keyEvt.which = 0x30;
     keyEvt.up = true;
 }
 
@@ -223,7 +245,7 @@ function GetCh() {
 
 //////////////////////////////////////////////////////////////////////////////
 function scanUserKey() {
-    let c = '';
+    let c = null;
 
     switch( projectIx ) {
 
@@ -233,8 +255,8 @@ function scanUserKey() {
             keyEvt.down = false;
         } else if (keyEvt.up == true) {
             keyEvt.up = false;
-            c = keyEvt.key;
-            keyEvt.key = '';
+            c = keyEvt.which;
+            keyEvt.which = null;
         }
         break;
     case 1: // moving Characters (Array)
@@ -243,8 +265,8 @@ function scanUserKey() {
             keyEvt.down = false;
         } else if (keyEvt.up == true) {
             keyEvt.up = false;
-            c = keyEvt.key;
-            keyEvt.key = '';
+            c = keyEvt.which;
+            keyEvt.which = null;
         }
         break;
     }
@@ -519,14 +541,14 @@ function movingCh(ix) {
 //////////////////////////////////////////////////////////////////////////////
 function nextMovingCh() {
     solIndex = solIndex + 1;
-    if( solIndex > 11 ) solIndex = 0;
+    if( solIndex > NOF_SOLUTION ) solIndex = 0;
     document.getElementById('solId').value = solIndex.toString();
     selectedMovingCh();
 }
 
 //////////////////////////////////////////////////////////////////////////////
 function lastMovingCh() {
-    solIndex = 12;
+    solIndex = NOF_SOLUTION + 1;
     runSelectedMovingChar();
 }
 
@@ -546,7 +568,7 @@ function launchMovingChar() {
 function selectedMovingCh() {
     id = document.getElementById('solId');
     solIndex = parseInt(id.value);
-    if( solIndex > 11 ) solIndex = 0;
+    if( solIndex > NOF_SOLUTION ) solIndex = 0;
 
     runSelectedMovingChar();
 }
@@ -556,7 +578,7 @@ function runSelectedMovingChar() {
     let _bNb = document.getElementById('nonBlockKey').checked;
 
     bGameInitialized = false;
-    newKey = 1;
+    newKey = null;
     numX = 1,
     inCnt = 0;
 
@@ -640,11 +662,11 @@ function movingChByPollingKeys() {
         numX = 0;
         newKey = scanUserKey();
 
-        if( (newKey != null) && (newKey != '')) {
-            printResult(newKey.toString());
+        if( (newKey != null) && (newKey != KEY_ENTER)) {
+            printResult(keyEvt.key);
         }
 
-        if ((newKey == '0') || (newKey == null) ) {
+        if (newKey == KEY_0 ) {
             clearInterval(movChInterval);
             alert("Game Over!");
             configSolutionEnd();
@@ -655,11 +677,11 @@ function movingChByPollingKeys() {
         numX = 0;
         newKey = scanUserKey();
 
-        if( (newKey != null) && (newKey != '')) {
+        if( (newKey != null) && (newKey != KEY_ENTER)) {
             printResult("@");
         }
 
-        if ((newKey == '0') || (newKey == null) ) {
+        if (newKey == KEY_0 ) {
             clearInterval(movChInterval);
             alert("Game Over!");
             configSolutionEnd();
@@ -671,11 +693,11 @@ function movingChByPollingKeys() {
 
         newKey = scanUserKey();
 
-        if((newKey == '+') || (newKey == '=') ) {
+        if(newKey == KEY_EQUAL_OR_PLUS ) {
             printResult("@");
         }
-
-        if ((newKey == '0') || (newKey == null) ) {
+        
+        if (newKey == KEY_0 ) {
             clearInterval(movChInterval);
             alert("Game Over!");
             configSolutionEnd();
@@ -684,20 +706,34 @@ function movingChByPollingKeys() {
 
     case 3:
         msg = '';
-        // ACTION: it places the character '@' based on the location index numX.
-        for(i = 0; i<numX; i++) {
-            msg = msg + "@";
+        
+
+        if( bGameInitialized == false ) {
+            bGameInitialized = true;
+            // ACTION: it places the character '@' based on the location index numX.
+            for(i = 0; i<numX; i++) {
+                msg = msg + "@";
+            }
+            printResult(msg);
         }
-        if( newKey != '' ) printResult(msg);
+
+
+        if( (newKey != null) && (newKey != KEY_ENTER )) {
+            // ACTION: it places the character '@' based on the location index numX.
+            for(i = 0; i<numX; i++) {
+                msg = msg + "@";
+            }
+            printResult(msg);
+        }
 
         // INPUT: user key input
         newKey = scanUserKey(); inCnt++;
 
         // CONTROL: controls the location of the character '@'.
-        if((newKey == '+') || (newKey == '=') )
+        if(newKey == KEY_EQUAL_OR_PLUS )
             numX++;
 
-        if ((newKey == '0') || (newKey == null) ) {
+        if (newKey == KEY_0 ) {
             clearInterval(movChInterval);
             alert("Game Over!");
             configSolutionEnd();
@@ -707,23 +743,36 @@ function movingChByPollingKeys() {
     case 4:
         
         msg = '';
-        // ACTION: it places the character '@' based on the location index numX.
-        for(i = 0; i<numX; i++) {
-            msg = msg + "@";
+        if( bGameInitialized == false ) {
+            bGameInitialized = true;
+            // ACTION: it places the character '@' based on the location index numX.
+            for(i = 0; i<numX; i++) {
+                msg = msg + "@";
+            }
+            printResult(msg);
         }
-        if( newKey != '' ) printResult(msg);
+        
+
+        if( (newKey != null) && (newKey != KEY_ENTER )) {
+            // ACTION: it places the character '@' based on the location index numX.
+            for(i = 0; i<numX; i++) {
+                msg = msg + "@";
+            }
+            printResult(msg);
+        }
 
         // INPUT: user key input
         newKey = scanUserKey(); inCnt++;
 
         // CONTROL: controls the location of the character '@'.
-        if((newKey == '+') || (newKey == '=') ){
+        if(newKey == KEY_EQUAL_OR_PLUS ){
             if(numX < plygdWidth)
                 numX++;
             //else
             //    console.log("\7");
         }
-        if ((newKey == '0') || (newKey == null) ) {
+
+        if (newKey == KEY_0 ) {
             clearInterval(movChInterval);
             alert("Game Over!");
             configSolutionEnd();
@@ -731,30 +780,41 @@ function movingChByPollingKeys() {
         break;
 
     case 5:
-        msg = '';
-        // ACTION: it places the character '@' based on the location index numX.
-        for(i = 0; i<numX; i++) {
-            msg = msg + "@";
-        }
-        if( newKey != '' ) printResult(msg);
 
+        msg = '';
+        if( bGameInitialized == false ) {
+            bGameInitialized = true;
+            // ACTION: it places the character '@' based on the location index numX.
+            for(i = 0; i<numX; i++) {
+                msg = msg + "@";
+            }
+            printResult(msg);
+        }
+
+
+        if( (newKey != null) && (newKey != KEY_ENTER )) {
+            // ACTION: it places the character '@' based on the location index numX.
+            for(i = 0; i<numX; i++) {
+                msg = msg + "@";
+            }
+            printResult(msg);
+        }
         // INPUT: user key input
         newKey = scanUserKey(); inCnt++;
 
         // CONTROL: controls the location of the character '@'.
-        if((newKey == '+') || (newKey == '=')){
+        if(newKey == KEY_EQUAL_OR_PLUS){
             if(numX < plygdWidth)
                 numX++;
             //lse
             //    console.log("\7");
-        } else if ((newKey == '-') || (newKey == '_')) {
+        } else if (newKey == KEY_MINUS_OR_UNDERSCORE) {
             if(numX > 0)
                 numX--;
             //else
             //    MessageBeep(MB_ICONASTERISK);
         }
-
-        if ((newKey == '0') || (newKey == null) ) {
+        if (newKey == KEY_0 ) {
             clearInterval(movChInterval);
             alert("Game Over!");
             configSolutionEnd();
@@ -764,31 +824,43 @@ function movingChByPollingKeys() {
     case 6:
     case 7:
 
-        // ACTION: it places the character '@' based on the location index numX.
         msg = '';
 
-        for(i = 0; i<numX; i++) {
-            msg = msg + "@";
+        if( bGameInitialized == false ) {
+            bGameInitialized = true;
+            // ACTION: it places the character '@' based on the location index numX.
+            for(i = 0; i<numX; i++) {
+                msg = msg + "@";
+            }
+            printResult(msg);
         }
-        if( newKey != '' ) printResult(msg);
+
+
+        if( (newKey != null) && (newKey != KEY_ENTER )) {
+            // ACTION: it places the character '@' based on the location index numX.
+            for(i = 0; i<numX; i++) {
+                msg = msg + "@";
+            }
+            printResult(msg);
+        }
 
         // INPUT: user key input
         newKey = scanUserKey(); inCnt++;
 
         // CONTROL: controls the location of the character '@'.
-        if((newKey == '+') || (newKey == '=')){
+        if(newKey == KEY_EQUAL_OR_PLUS){
             if(numX < plygdWidth)
                 numX++;
             //else
             //    console.log("\7");
-        } else if ((newKey == '-') || (newKey == '_')) {
+        } else if (newKey == KEY_MINUS_OR_UNDERSCORE) {
             if(numX > 1)
                 numX--;
             //else
             //    MessageBeep(MB_ICONASTERISK);
         }
 
-        if ((newKey == '0') || (newKey == null) ) {
+        if (newKey == KEY_0 ) {
             clearInterval(movChInterval);
             alert("Game Over!");
             configSolutionEnd();
@@ -798,29 +870,41 @@ function movingChByPollingKeys() {
     case 8:
     case 9:
 
-
         msg = '';
 
-        for(i = 0; i<numX; i++) {
-            msg = msg + "@";
+        if( bGameInitialized == false ) {
+            bGameInitialized = true;
+            // ACTION: it places the character '@' based on the location index numX.
+            for(i = 0; i<numX; i++) {
+                msg = msg + "@";
+            }
+            printResult(msg);
         }
-        if( newKey != '' ) printResult(msg);
+
+
+        if( (newKey != null) && (newKey != KEY_ENTER )) {
+            // ACTION: it places the character '@' based on the location index numX.
+            for(i = 0; i<numX; i++) {
+                msg = msg + "@";
+            }
+            printResult(msg);
+        }
 
         newKey = scanUserKey(); inCnt++;
 
-        if((newKey == '+') || (newKey == '=')){
+        if(newKey == KEY_EQUAL_OR_PLUS){
             if(numX < plygdWidth)
                 numX++;
             else
                 numX = 1;
-        } else if ((newKey == '-') || (newKey == '_')) {
+        } else if (newKey == KEY_MINUS_OR_UNDERSCORE) {
             if(numX > 1)
                 numX--;
             //else
             //    MessageBeep(MB_ICONASTERISK);
         }
 
-        if ((newKey == '0') || (newKey == null) ) {
+        if (newKey == KEY_0 ) {
             clearInterval(movChInterval);
             alert("Game Over!");
             configSolutionEnd();
@@ -832,26 +916,39 @@ function movingChByPollingKeys() {
     case 11:
 
         msg = '';
-        for(i = 0; i<numX; i++) {
-            msg = msg + "@";
+        if( bGameInitialized == false ) {
+            bGameInitialized = true;
+            // ACTION: it places the character '@' based on the location index numX.
+            for(i = 0; i<numX; i++) {
+                msg = msg + "@";
+            }
+            printResult(msg);
         }
-        if( newKey != '' ) printResult(msg);
+
+
+        if( (newKey != null) && (newKey != KEY_ENTER )) {
+            // ACTION: it places the character '@' based on the location index numX.
+            for(i = 0; i<numX; i++) {
+                msg = msg + "@";
+            }
+            printResult(msg);
+        }
 
         newKey = scanUserKey(); inCnt++;
 
-        if((newKey == '+') || (newKey == '=')){
+        if(newKey == KEY_EQUAL_OR_PLUS){
             if(numX < plygdWidth)
                 numX++;
             else
                 numX = 1;
-        } else if ((newKey == '-') || (newKey == '_')) {
+        } else if (newKey == KEY_MINUS_OR_UNDERSCORE) {
             if(numX > 1)
                 numX--;
             else
-                numX = plygdWidth;
+                numX = plygdWidth; //plygdWidth == 30
         }
 
-        if ((newKey == '0') || (newKey == null) ) {
+        if (newKey == KEY_0 ) {
             clearInterval(movChInterval);
             alert("Game Over!");
             configSolutionEnd();
@@ -859,32 +956,44 @@ function movingChByPollingKeys() {
         break;
 
     case 12:
-    
+
         msg = '';
-        for(i = 0; i<numX; i++) {
-            msg = msg + "@";
+        if( bGameInitialized == false ) {
+            bGameInitialized = true;
+            // ACTION: it places the character '@' based on the location index numX.
+            for(i = 0; i<numX; i++) {
+                msg = msg + "@";
+            }
+            printResult(msg);
         }
-        
-        if( newKey != '' ) {
+
+
+        if( (newKey != null) && (newKey != KEY_ENTER )) {
+            // ACTION: it places the character '@' based on the location index numX.
+            for(i = 0; i<numX; i++) {
+                msg = msg + "@";
+            }
+
             clearMsgBoard();
             printResultNoCur(msg);
         }
         
+        
         newKey = scanUserKey();
 
-        if((newKey == '+') || (newKey == '=')){
+        if(newKey == KEY_EQUAL_OR_PLUS){
             if(numX < plygdWidth)
                 numX++;
             else
                 numX = 1;
-        } else if ((newKey == '-') || (newKey == '_')) {
+        } else if (newKey == KEY_MINUS_OR_UNDERSCORE) {
             if(numX > 1)
                 numX--;
             else
-                numX = plygdWidth;
+                numX = plygdWidth; //plygdWidth == 30
         }
 
-        if ((newKey == '0') || (newKey == null) ) {
+        if (newKey == KEY_0 ) {
             clearInterval(movChInterval);
             alert("Game Over!");
             configSolutionEnd();
@@ -914,9 +1023,10 @@ function moveCharInRectArray(ix)
         alert("Invalid Solution ID !");        
         break;
     case 1:
-        
-        for( i=0; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
+
         pgdActiveLine[0] = '@';
+        for( i=1; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
+        
 
         while ((c != '0') && (c != null) ) {
 
@@ -924,9 +1034,9 @@ function moveCharInRectArray(ix)
 
             if( c != null) {
                 if( c == '') {
-                    printResultInArray("");
+                    printResultInArray("", 0);
                 } else {
-                    printResultInArray(pgdActiveLine.join(''));
+                    printResultInArray(pgdActiveLine.join(''), 1);
                 }
             }
             
@@ -935,27 +1045,26 @@ function moveCharInRectArray(ix)
 
     case 2:
 
-        for( i=0; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
-        
         pgdActiveLine[0] = '@';
+        for( i=1; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
         
         while ((c != '0') && (c != null) ) {
 
             c = GetCh();
             if((c == '+') || (c == '=') ) {
-                printResultInArray(pgdActiveLine.join(''));
+                printResultInArray(pgdActiveLine.join(''), 1);
             }
         }
         break;
 
     case 3:
-        for( i=0; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
         pgdActiveLine[0] = '@';
+        for( i=1; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
 
         while ((c != '0') && (c != null) ) {
 
             // ACTION: it places the character '@' based on the location index x.
-            printResultInArray(pgdActiveLine.join(''));
+            printResultInArray(pgdActiveLine.join(''), x);
 
             // INPUT: user key input
             c = GetCh(); inCnt++;
@@ -970,12 +1079,12 @@ function moveCharInRectArray(ix)
 
     case 4:
 
-        for( i=0; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
         pgdActiveLine[0] = '@';
+        for( i=1; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
 
         while ((c != '0') && (c != null) ) {
 
-            printResultInArray(pgdActiveLine.join(''));
+            printResultInArray(pgdActiveLine.join(''), x);
 
             c = GetCh(); inCnt++;
             if((c == '+') || (c == '=') ){
@@ -990,12 +1099,12 @@ function moveCharInRectArray(ix)
         break;
 
     case 5:
-        for( i=0; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
         pgdActiveLine[0] = '@';
+        for( i=1; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
 
         while ((c != '0') && (c != null) ) {
 
-            printResultInArray(pgdActiveLine.join(''));
+            printResultInArray(pgdActiveLine.join(''), x);
 
             c = GetCh(); inCnt++;
             if((c == '+') || (c == '=')){
@@ -1008,7 +1117,7 @@ function moveCharInRectArray(ix)
             } else if ((c == '-') || (c == '_')) {
                 if(x > 0) {
                     x--;
-                    pgdActiveLine[x] = ' ';
+                    pgdActiveLine[x] = PLAYGROUND_SPACE_CHAR;
                 }
                 //else MessageBeep(MB_ICONASTERISK);
             }
@@ -1017,12 +1126,12 @@ function moveCharInRectArray(ix)
 
     case 6:
     case 7:
-        for( i=0; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
         pgdActiveLine[0] = '@';
+        for( i=1; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
 
         while ((c != '0') && (c != null) ) {
 
-            printResultInArray(pgdActiveLine.join(''));
+            printResultInArray(pgdActiveLine.join(''), x);
 
             c = GetCh(); inCnt++;
             if((c == '+') || (c == '=')){
@@ -1035,7 +1144,7 @@ function moveCharInRectArray(ix)
             } else if ((c == '-') || (c == '_')) {
                 if(x > 1) {
                     x--;
-                    pgdActiveLine[x] = ' ';
+                    pgdActiveLine[x] = PLAYGROUND_SPACE_CHAR;
                 } //else MessageBeep(MB_ICONASTERISK);
             }
         }
@@ -1043,11 +1152,12 @@ function moveCharInRectArray(ix)
 
     case 8:
     case 9:
-        for( i=0; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
         pgdActiveLine[0] = '@';
+        for( i=1; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
+
         while ((c != '0') && (c != null) ) {
 
-            printResultInArray(pgdActiveLine.join(''));
+            printResultInArray(pgdActiveLine.join(''), x);
 
             c = GetCh(); inCnt++;
             if((c == '+') || (c == '=')){
@@ -1055,15 +1165,16 @@ function moveCharInRectArray(ix)
                     pgdActiveLine[x] = '@';
                     x++;
                 } else {
+                    
                     x = 1;
                     pgdActiveLine[0] = '@';
 
-                    for( i = x; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
+                    for( i = x; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
                 }
             } else if ((c == '-') || (c == '_')) {
                 if(x > 1) {
                     x--;
-                    pgdActiveLine[x] = ' ';
+                    pgdActiveLine[x] = PLAYGROUND_SPACE_CHAR;
                 } //else MessageBeep(MB_ICONASTERISK);
             }
         }
@@ -1072,12 +1183,12 @@ function moveCharInRectArray(ix)
 
     case 10:
     case 11:
-        for( i=0; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
         pgdActiveLine[0] = '@';
+        for( i=1; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
 
         while ((c != '0') && (c != null) ) {
 
-            printResultInArray(pgdActiveLine.join(''));
+            printResultInArray(pgdActiveLine.join(''), x);
 
             c = GetCh(); inCnt++;
             if((c == '+') || (c == '=')){
@@ -1087,12 +1198,12 @@ function moveCharInRectArray(ix)
                 } else {
                     x = 1;
                     pgdActiveLine[0] = '@';
-                    for( i = x; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
+                    for( i = x; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
                 }
             } else if ((c == '-') || (c == '_')) {
                 if(x > 1) {
                     x--;
-                    pgdActiveLine[x] = ' ';
+                    pgdActiveLine[x] = PLAYGROUND_SPACE_CHAR;
                 } else {
                     x = plygdWidth; //plygdWidth == 30
                     for(i=0; i < x; i++){
@@ -1104,12 +1215,12 @@ function moveCharInRectArray(ix)
         break;
 
     case 12:
-        for( i=0; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
         pgdActiveLine[0] = '@';
+        for( i=1; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
 
         while ((c != '0') && (c != null) ) {            
             clearMsgBoard();
-            printResultInArrayNoCur(pgdActiveLine.join(''));
+            printResultInArrayNoCur(pgdActiveLine.join(''), x);
 
             c = GetCh();
             if((c == '+') || (c == '=')){
@@ -1119,12 +1230,12 @@ function moveCharInRectArray(ix)
                 } else {
                     x = 1;
                     pgdActiveLine[0] = '@';
-                    for( i = x; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
+                    for( i = x; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
                 }
             } else if ((c == '-') || (c == '_')) {
                 if(x > 0) {
                     x--;
-                    pgdActiveLine[x] = ' ';
+                    pgdActiveLine[x] = PLAYGROUND_SPACE_CHAR;
                 } else {
                     x = plygdWidth; //plygdWidth == 30
                     for(i=0; i < x; i++){
@@ -1137,7 +1248,7 @@ function moveCharInRectArray(ix)
         break;
     default:
         //console.log("The task ID %d is not available.\n");
-        printResultInArray("The task ID %d is not available.\n");
+        printResultInArray("The task ID %d is not available.", 0);
         break;
     }
 
@@ -1145,10 +1256,10 @@ function moveCharInRectArray(ix)
     return 0;
 }
 
+//////////////////////////////////////////////////////////////////////////////
 function moveCharInRectArrayByPollingKeys()
 {
     let i, ix = solIndex;    
-    //let pgdActiveLine = new Array(PLAYGROUND_WIDTH_MAX+2); //.join(''); //char pgdActiveLine[PLAYGROUND_WIDTH_MAX+2];
     let plygdWidth = MOVE_CHAR_WIDTH; // rectangular/playground width
     
     initMessageBoard();
@@ -1161,17 +1272,17 @@ function moveCharInRectArrayByPollingKeys()
     
         if( bGameInitialized == false ) {
             bGameInitialized = true;
-            for( i=0; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
             pgdActiveLine[0] = '@';
+            for( i=1; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
         }
 
         newKey = scanUserKey();
 
-        if( (newKey != null) && (newKey != '')) {
-            printResultInArray(pgdActiveLine.join(''));
+        if( (newKey != null) && (newKey != KEY_ENTER)) {
+            printResultInArray(pgdActiveLine.join(''), 1);
         }
         
-        if ((newKey == '0') || (newKey == null) ) {
+        if (newKey == KEY_0 ) {
             clearInterval(movChInterval);
             alert("Game Over!");
             configSolutionEnd();
@@ -1181,18 +1292,17 @@ function moveCharInRectArrayByPollingKeys()
     case 2:
         if( bGameInitialized == false ) {
             bGameInitialized = true;
-            for( i=0; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';        
             pgdActiveLine[0] = '@';
+            for( i=1; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
         }
         
         newKey = scanUserKey();
 
-        if((newKey == '+') || (newKey == '=') ) {
-                //console.log("%s\n", pgdActiveLine);
-            printResultInArray(pgdActiveLine.join(''));
+        if(newKey == KEY_EQUAL_OR_PLUS ) {
+            printResultInArray(pgdActiveLine.join(''), 1);
         }
 
-        if ((newKey == '0') || (newKey == null) ) {
+        if (newKey == KEY_0 ) {
             clearInterval(movChInterval);
             alert("Game Over!");
             configSolutionEnd();
@@ -1204,23 +1314,25 @@ function moveCharInRectArrayByPollingKeys()
         if( bGameInitialized == false ) {
             bGameInitialized = true;
             for( i=0; i < numX; i++ ) pgdActiveLine[i] = '@';
-            for( i = numX; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
+            for( i = numX; i < plygdWidth; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
+            for( i = plygdWidth; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = '';
+            printResultInArray(pgdActiveLine.join(''), numX);
         }
 
-        if( newKey != '' ) {
+        if( (newKey != null ) && (newKey != KEY_ENTER) ) {
             // ACTION: it places the character '@' based on the location index numX.
-            printResultInArray(pgdActiveLine.join(''));
+            printResultInArray(pgdActiveLine.join(''), numX);
         }
 
         newKey = scanUserKey(); inCnt++;
 
         // CONTROL: controls the location of the character '@'.
-        if((newKey == '+') || (newKey == '=') ) {
+        if(newKey == KEY_EQUAL_OR_PLUS ) {
             pgdActiveLine[numX] = '@';
             numX++;
         }
 
-        if ((newKey == '0') || (newKey == null) ) {
+        if (newKey == KEY_0 ) {
             clearInterval(movChInterval);
             alert("Game Over!");
             configSolutionEnd();
@@ -1232,25 +1344,27 @@ function moveCharInRectArrayByPollingKeys()
         if( bGameInitialized == false ) {
             bGameInitialized = true;
             for( i=0; i < numX; i++ ) pgdActiveLine[i] = '@';
-            for( i = numX; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
+            for( i = numX; i < plygdWidth; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
+            for( i = plygdWidth; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = '';
+            printResultInArray(pgdActiveLine.join(''), numX);
         }
 
-        if( newKey != '' ) {
+        if( (newKey != null ) && (newKey != KEY_ENTER) ) {
             // ACTION: it places the character '@' based on the location index numX.
-            printResultInArray(pgdActiveLine.join(''));
+            printResultInArray(pgdActiveLine.join(''), numX);
         }
 
         newKey = scanUserKey(); inCnt++;
 
         // CONTROL: controls the location of the character '@'.
-        if((newKey == '+') || (newKey == '=') ) {
+        if(newKey == KEY_EQUAL_OR_PLUS ) {
             if(numX < plygdWidth) {
                 pgdActiveLine[numX] = '@';
                 numX++;
             }
         }
 
-        if ((newKey == '0') || (newKey == null) ) {
+        if (newKey == KEY_0 ) {
             clearInterval(movChInterval);
             alert("Game Over!");
             configSolutionEnd();
@@ -1262,30 +1376,32 @@ function moveCharInRectArrayByPollingKeys()
         if( bGameInitialized == false ) {
             bGameInitialized = true;
             for( i=0; i < numX; i++ ) pgdActiveLine[i] = '@';
-            for( i = numX; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
+            for( i = numX; i < plygdWidth; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
+            for( i = plygdWidth; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = '';
+            printResultInArray(pgdActiveLine.join(''), numX);
         }
 
-        if( newKey != '' ) {
+        if( (newKey != null ) && (newKey != KEY_ENTER) ) {
             // ACTION: it places the character '@' based on the location index numX.
-            printResultInArray(pgdActiveLine.join(''));
+            printResultInArray(pgdActiveLine.join(''), numX);
         }
 
         newKey = scanUserKey(); inCnt++;
 
         // CONTROL: controls the location of the character '@'.
-        if((newKey == '+') || (newKey == '=') ) {
+        if(newKey == KEY_EQUAL_OR_PLUS ) {
             if(numX < plygdWidth) {
                 pgdActiveLine[numX] = '@';
                 numX++;
             }
-        } else if ((newKey == '-') || (newKey == '_')) {
+        } else if (newKey == KEY_MINUS_OR_UNDERSCORE) {
             if(numX > 0) {
                 numX--;
-                pgdActiveLine[numX] = ' ';
+                pgdActiveLine[numX] = PLAYGROUND_SPACE_CHAR;
             }
         }
 
-        if ((newKey == '0') || (newKey == null) ) {
+        if (newKey == KEY_0 ) {
             clearInterval(movChInterval);
             alert("Game Over!");
             configSolutionEnd();
@@ -1298,30 +1414,32 @@ function moveCharInRectArrayByPollingKeys()
         if( bGameInitialized == false ) {
             bGameInitialized = true;
             for( i=0; i < numX; i++ ) pgdActiveLine[i] = '@';
-            for( i = numX; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
+            for( i = numX; i < plygdWidth; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
+            for( i = plygdWidth; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = '';
+            printResultInArray(pgdActiveLine.join(''), numX);
         }
 
-        if( newKey != '' ) {
+        if( (newKey != null ) && (newKey != KEY_ENTER) ) {
             // ACTION: it places the character '@' based on the location index numX.
-            printResultInArray(pgdActiveLine.join(''));
+            printResultInArray(pgdActiveLine.join(''), numX);
         }
 
         newKey = scanUserKey(); inCnt++;
 
         // CONTROL: controls the location of the character '@'.
-        if((newKey == '+') || (newKey == '=') ) {
+        if(newKey == KEY_EQUAL_OR_PLUS ) {
             if(numX < plygdWidth) {
                 pgdActiveLine[numX] = '@';
                 numX++;
             }
-        } else if ((newKey == '-') || (newKey == '_')) {
+        } else if (newKey == KEY_MINUS_OR_UNDERSCORE) {
             if(numX > 1) {
                 numX--;
-                pgdActiveLine[numX] = ' ';
+                pgdActiveLine[numX] = PLAYGROUND_SPACE_CHAR;
             }
         }
 
-        if ((newKey == '0') || (newKey == null) ) {
+        if (newKey == KEY_0 ) {
             clearInterval(movChInterval);
             alert("Game Over!");
             configSolutionEnd();
@@ -1334,18 +1452,20 @@ function moveCharInRectArrayByPollingKeys()
         if( bGameInitialized == false ) {
             bGameInitialized = true;
             for( i=0; i < numX; i++ ) pgdActiveLine[i] = '@';
-            for( i = numX; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
+            for( i = numX; i < plygdWidth; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
+            for( i = plygdWidth; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = '';
+            printResultInArray(pgdActiveLine.join(''), numX);
         }
 
-        if( newKey != '' ) {
+        if( (newKey != null ) && (newKey != KEY_ENTER) ) {
             // ACTION: it places the character '@' based on the location index numX.
-            printResultInArray(pgdActiveLine.join(''));
+            printResultInArray(pgdActiveLine.join(''), numX);
         }
 
         newKey = scanUserKey(); inCnt++;
 
         // CONTROL: controls the location of the character '@'.
-        if((newKey == '+') || (newKey == '=') ) {
+        if(newKey == KEY_EQUAL_OR_PLUS ) {
             if(numX < plygdWidth) {
                 pgdActiveLine[numX] = '@';
                 numX++;
@@ -1353,16 +1473,16 @@ function moveCharInRectArrayByPollingKeys()
                 numX = 1;
                 pgdActiveLine[0] = '@';
 
-                for( i = numX; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
+                for( i = numX; i < plygdWidth; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
             }
-        } else if ((newKey == '-') || (newKey == '_')) {
+        } else if (newKey == KEY_MINUS_OR_UNDERSCORE) {
             if(numX > 1) {
                 numX--;
-                pgdActiveLine[numX] = ' ';
+                pgdActiveLine[numX] = PLAYGROUND_SPACE_CHAR;
             } //else MessageBeep(MB_ICONASTERISK);
         }
 
-        if ((newKey == '0') || (newKey == null) ) {
+        if (newKey == KEY_0 ) {
             clearInterval(movChInterval);
             alert("Game Over!");
             configSolutionEnd();
@@ -1375,18 +1495,20 @@ function moveCharInRectArrayByPollingKeys()
         if( bGameInitialized == false ) {
             bGameInitialized = true;
             for( i=0; i < numX; i++ ) pgdActiveLine[i] = '@';
-            for( i = numX; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
+            for( i = numX; i < plygdWidth; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
+            for( i = plygdWidth; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = '';
+            printResultInArray(pgdActiveLine.join(''), numX);
         }
 
-        if( newKey != '' ) {
+        if( (newKey != null ) && (newKey != KEY_ENTER) ) {
             // ACTION: it places the character '@' based on the location index numX.
-            printResultInArray(pgdActiveLine.join(''));
+            printResultInArray(pgdActiveLine.join(''), numX);
         }
 
         newKey = scanUserKey(); inCnt++;
 
         // CONTROL: controls the location of the character '@'.
-        if((newKey == '+') || (newKey == '=') ) {
+        if(newKey == KEY_EQUAL_OR_PLUS ) {
             if(numX < plygdWidth) {
                 pgdActiveLine[numX] = '@';
                 numX++;
@@ -1394,12 +1516,12 @@ function moveCharInRectArrayByPollingKeys()
                 numX = 1;
                 pgdActiveLine[0] = '@';
 
-                for( i = numX; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
+                for( i = numX; i < plygdWidth; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
             }
-        } else if ((newKey == '-') || (newKey == '_')) {
+        } else if (newKey == KEY_MINUS_OR_UNDERSCORE) {
             if(numX > 1) {
                 numX--;
-                pgdActiveLine[numX] = ' ';
+                pgdActiveLine[numX] = PLAYGROUND_SPACE_CHAR;
             } else {
                 numX = plygdWidth; //plygdWidth == 30
                 for(i=0; i < numX; i++){
@@ -1408,7 +1530,7 @@ function moveCharInRectArrayByPollingKeys()
             }
         }
 
-        if ((newKey == '0') || (newKey == null) ) {
+        if (newKey == KEY_0 ) {
             clearInterval(movChInterval);
             alert("Game Over!");
             configSolutionEnd();
@@ -1420,19 +1542,21 @@ function moveCharInRectArrayByPollingKeys()
         if( bGameInitialized == false ) {
             bGameInitialized = true;
             for( i=0; i < numX; i++ ) pgdActiveLine[i] = '@';
-            for( i = numX; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
+            for( i = numX; i < plygdWidth; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
+            for( i = plygdWidth; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = '';
+            printResultInArray(pgdActiveLine.join(''), numX);
         }
 
-        if( newKey != '' ) {
+        if( (newKey != null ) && (newKey != KEY_ENTER) ) {
             clearMsgBoard();
             // ACTION: it places the character '@' based on the location index numX.
-            printResultInArrayNoCur(pgdActiveLine.join(''));
+            printResultInArrayNoCur(pgdActiveLine.join(''), numX);
         }
 
         newKey = scanUserKey(); //inCnt++;
 
         // CONTROL: controls the location of the character '@'.
-        if((newKey == '+') || (newKey == '=') ) {
+        if(newKey == KEY_EQUAL_OR_PLUS ) {
             if(numX < plygdWidth) {
                 pgdActiveLine[numX] = '@';
                 numX++;
@@ -1440,12 +1564,12 @@ function moveCharInRectArrayByPollingKeys()
                 numX = 1;
                 pgdActiveLine[0] = '@';
 
-                for( i = numX; i < pgdActiveLine.length; i++ ) pgdActiveLine[i] = ' ';
+                for( i = numX; i < plygdWidth; i++ ) pgdActiveLine[i] = PLAYGROUND_SPACE_CHAR;
             }
-        } else if ((newKey == '-') || (newKey == '_')) {
+        } else if (newKey == KEY_MINUS_OR_UNDERSCORE) {
             if(numX > 1) {
                 numX--;
-                pgdActiveLine[numX] = ' ';
+                pgdActiveLine[numX] = PLAYGROUND_SPACE_CHAR;
             } else {
                 numX = plygdWidth; //plygdWidth == 30
                 for(i=0; i < numX; i++){
@@ -1454,7 +1578,7 @@ function moveCharInRectArrayByPollingKeys()
             }
         }
 
-        if ((newKey == '0') || (newKey == null) ) {
+        if (newKey == KEY_0 ) {
             clearInterval(movChInterval);
             alert("Game Over!");
             configSolutionEnd();
@@ -1462,8 +1586,7 @@ function moveCharInRectArrayByPollingKeys()
         break;
 
     default:
-        //console.log("The task ID %d is not available.\n");
-        printResultInArray("The task ID %d is not available.\n");
+        printResultInArray("The task ID %d is not available.", 0);
         break;
     }
     return 0;
