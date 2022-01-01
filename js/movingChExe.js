@@ -36,6 +36,7 @@ const PLAYGROUND_Y_OFFSET_MAX       = 30;
 const PLAYGROUND_X_OFFSET_INCREAMENT = 5;
 const PLAYGROUND_Y_OFFSET_INCREAMENT = 5;
 const MAX_MSG_BOARD_LINES            = 31;    // used to clear the message board.
+const NOF_SOLUTION                   = 11;
 
 let projectIx = 0;
 let solIndex = 0;
@@ -538,14 +539,14 @@ function movingCh(ix) {
 //////////////////////////////////////////////////////////////////////////////
 function nextMovingCh() {
     solIndex = solIndex + 1;
-    if( solIndex > 11 ) solIndex = 0;
+    if( solIndex > NOF_SOLUTION ) solIndex = 0;
     document.getElementById('solId').value = solIndex.toString();
     selectedMovingCh();
 }
 
 //////////////////////////////////////////////////////////////////////////////
 function lastMovingCh() {
-    solIndex = 12;
+    solIndex = NOF_SOLUTION + 1;
     runSelectedMovingChar();
 }
 
@@ -565,7 +566,7 @@ function launchMovingChar() {
 function selectedMovingCh() {
     id = document.getElementById('solId');
     solIndex = parseInt(id.value);
-    if( solIndex > 11 ) solIndex = 0;
+    if( solIndex > NOF_SOLUTION ) solIndex = 0;
 
     runSelectedMovingChar();
 }
