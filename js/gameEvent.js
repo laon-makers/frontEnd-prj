@@ -24,36 +24,16 @@ function movingChKeyDownEvent(e) {
         e.preventDefault();
     }
 
-    //switch( projectIx ) {
-    //case 0: // moving Character
+    if( (KEY_SHIFT != e.which) && (KEY_CTRL != e.which) && (KEY_ALT != e.which) ) {
 
-        // switch(e.key) {
-        // case 'ArrowLeft':
-            
-        //     break;
-        // case 'ArrowRight':
-        //     break;
-        // case 'ArrowUp':
-        //     break;
-        // case 'ArrowDown':
-        //     break;0
-        // default:
-        //     break;
-        // }
+        keyEvt.down = true;
+        keyEvt.key = e.key;
+        keyEvt.which = e.which;
 
-        if(keyEvt.down == false) {
-            //if( keyEvt.up == false ) {
-                keyEvt.down = true;
-                keyEvt.key = e.key;
-                keyEvt.chCode = e.charCode;
-                //keyEvt.up = false;
-                //if(keyEvt.up == false ) keyEvt.key = e.key;
-            //}
-        }
-    //    break;
-    // case 1: // invading Characters
-    //     break;
-    //}
+        keyEvt.ctrl = e.ctrlKey;
+        keyEvt.alt = e.altKey;
+        keyEvt.shift = e.shiftKey;
+    }
 }
 
 
@@ -66,29 +46,6 @@ function movingChKeyUpEvent(e) {
         e.preventDefault();
     }
 
-    //switch( projectIx ) {
-    //case 0: // moving Character
-
-        // switch(e.key) {
-        // case 'ArrowLeft':
-            
-        //     break;
-        // case 'ArrowRight':
-        //     break;
-        // case 'ArrowUp':
-        //     break;
-        // case 'ArrowDown':
-        //     break;
-        // default:
-        //     break;
-        // }
-
-        //keyEvt.down = false;
-        keyEvt.up = true;
-    //   break;
-
-    // case 1: // invading Characters
-    //     break;
-    //}
+    keyEvt.up = true;    
 }
 
