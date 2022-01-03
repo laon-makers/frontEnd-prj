@@ -78,7 +78,7 @@
 
 <nav><br/><br/>
     <!--a class="prj" id="goBack1" href="#" onClick="goBack(1)">&lt;= <i>back2main</i></a><br/><br/><br/-->
-    <!--a><mark><b>Intermediate</b></mark></a--><br/><br/>1.
+    <mark><b>Intermediate</b></mark><br/><br/>1.
     <a href="#" id="m1" class="prj" onClick="showElement(-1)">문자이동 I</a><br/><br/>2.
     <a href="#" id="m2" class="prj" onClick="showElement(-2)">문자이동 I <br/>&nbsp;&nbsp;&nbsp;&nbsp; (Array)</a><br/><br/>
     <!--a href=".Project_C_Advanced.htm?tab=tab_prj&item=2"><i><mark>Advanced</mark></i></a><br/><br/-->
@@ -320,9 +320,8 @@
             - switch(), case:, default:, break;
             - return 0; 
                 </pre>
-                주 함수인 movingCharArray 함수에선 아래와 같은 switch case 구조로, 각 small task에서 define한 <br/>
-                각 함수 들을 아래와 같이 호출 한다. 이때 main 함수는 Source File의 가장 아랫 부분에 <br/>
-                위치 하게 한다. 이로써 새로 만드는 Function들의 Function Signature들을 매번 정의하 필요가 없게 된다. <br/><br/>
+                Main 함수인 movingCharArray 함수에선 아래와 같은 switch case 구조로, 각 small task에서 define한 <br/>
+                각 함수 들을 아래와 같이 호출 한다.<br/><br/>
                 <pre class="cFormat">
         function movingCharArray(taskId)
         {
@@ -422,6 +421,10 @@
                         6. 만약 '+' Key가 아닌 다른 키가 입력 되면 변수 'x' 값을 증 가 시키지 않고, <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                            playgroundActiveRow에 저장됐던 값들을 모두 Print 하게 하세요. <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                            즉 print되는 @ 갯수가 Key가 눌리기 이전 갯 수와 동일한 수가 되는 것입니다.<br/>
+
+                    * <span style='color:red'>주의</span>: 이 project를 진행 하는 전체 과정에서 아래 기술된 한 가지 규칙을 꼭 따라야합니다.<br/>&emsp;
+                      그 규칙은 print할 '표시 문자' (default: '@')들을 하나의 Array에 보관해야 한다는 것과,<br/>&emsp;
+                      print 전에 print하고자 하는 모든 것들을 미리 이 Array에 담아야 한다는 것이다. <br/><br/>
             </dd>
             <dt>4) '+' 또는 '=' Key로 '@' 30개 까지만 Print</dt><dd>
                 <a class="prj" href="movingChExe.htm?prj=1&id=4"><br/>&nbsp;
