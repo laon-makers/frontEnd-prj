@@ -6,4 +6,6 @@
     border: 1px;    
     width: 700px;
     height: 520px;
+    overflow: scroll;
+    /*overflow-y: scroll;*/
 }

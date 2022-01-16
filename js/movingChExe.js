@@ -1,6 +1,6 @@
 /*  Author: Laon Maker (Laon Creators' Group)
-    Version: 1.4
-    Last update: Jan. 3, 2022
+    Version: 1.5
+    Last update: Jan. 17, 2022
 */
 const KEY_ENTER         = 0x0D;
 const KEY_0             = 0x30;
@@ -209,71 +209,6 @@ function resetMovingCh(ix) {
     chIndex = 0;
     keyCode = '';
 }
-
-//////////////////////////////////////////////////////////////////////////////
-function GetCh() {
-    let c = '';
-
-    switch( projectIx ) {
-
-    case 0: // moving Character
-        c = prompt(instruction, '');
-        if ( c == undefined ) {
-            return c;
-        }
-    
-        if (c.length > 0) {
-            return c[0];
-        }
-
-        break;
-    case 1: // moving Characters (Array)
-        c = prompt(instruction, '');
-        if ( c == undefined ) {
-            return c;
-        }
-    
-        if (c.length > 0) {
-            return c[0];
-        }
-
-        break;
-    }
-
-    return c;
-}
-
-//////////////////////////////////////////////////////////////////////////////
-function scanUserKey() {
-    let c = null;
-
-    switch( projectIx ) {
-
-    case 0: // moving Character
-            
-        if( keyEvt.down == true ) {
-            keyEvt.down = false;
-        } else if (keyEvt.up == true) {
-            keyEvt.up = false;
-            c = keyEvt.which;
-            keyEvt.which = null;
-        }
-        break;
-    case 1: // moving Characters (Array)
-            
-        if( keyEvt.down == true ) {
-            keyEvt.down = false;
-        } else if (keyEvt.up == true) {
-            keyEvt.up = false;
-            c = keyEvt.which;
-            keyEvt.which = null;
-        }
-        break;
-    }
-
-    return c;
-}
-
 
 //////////////////////////////////////////////////////////////////////////////
 function initMessageBoard() {

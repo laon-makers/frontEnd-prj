@@ -1,6 +1,6 @@
 //  Author: Laon Maker (Laon Creators' Group)
-//    Version: 0.4
-//    Last update: Jan. 03, 2022
+//    Version: 1.0
+//    Last update: Jan. 17, 2022
 //
 //const GETCHAR_2BYTES = 1;
 
@@ -238,55 +238,6 @@ function resetMovingCh(ix) {
     keyCode = '';
 }
 
-
-//////////////////////////////////////////////////////////////////////////////
-function GetCh() {
-    let c = '';
-    //let c;
-
-    switch( projectIx ) {
-
-    case 0: // moving Character
-        c = prompt(instruction, '');
-        if ( c == undefined ) {
-            return c;
-        }
-    
-        if (c.length > 0) {
-            return c[0];
-        }
-
-        break;
-    case 1: // moving Characters (Array)
-        c = prompt(instruction, '');
-        if ( c == undefined ) {
-            return c;
-        }
-    
-        if (c.length > 0) {
-            return c[0];
-        }
-
-        break;
-    }
-
-    return c;
-}
-
-//////////////////////////////////////////////////////////////////////////////
-function scanUserKey() {
-    let c = null;
-
-    if( keyEvt.down == true ) {
-        keyEvt.down = false;
-    } else if (keyEvt.up == true) {
-        keyEvt.up = false;
-        c = keyEvt.which;
-        keyEvt.which = null;
-    }
-
-    return c;
-}
 
 //////////////////////////////////////////////////////////////////////////////
 function initMessageBoard() {

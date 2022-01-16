@@ -1,6 +1,6 @@
 /*  Author: Laon Maker (Laon Creators' Group)
     Version: 1.0
-    Last update: Dec. 27, 2021
+    Last update: Jan. 17, 2022
 */
 var parentTapMenu;
 var tapItemIdx;
@@ -8,6 +8,7 @@ var dictionary = {
     "(\/\/\.+)" : "<cmt>\$1</cmt>",
     "(\\s|\\(|\\,)function(\\s|\\))" : "\$1<kwd>function</kwd>\$2", // \\s는 공백문자. \$1 은 앞선 첫번째 () 안에 있는 패턴과 일치한 결과 값. \$2 는 두번째 () 안에 있는 패턴과 일치한 결과 값이다.
     "(\\s|\\(|\\,)let(\\s|\\))" : "\$1<kwd>let</kwd>\$2",
+    "(\\s|\\(|\\,)const(\\s|\\))" : "\$1<kwd>const</kwd>\$2",
     "(\\s|\\(|\\,)class(\\s|\\))" : "\$1<kwd>class</kwd>\$2",    
     "([^\/][^\/]\\s*)struct(\\s)" : "\$1<kwd>struct</kwd>\$2",
     "(\\s)typedef(\\s)" : "\$1<kwd>typedef</kwd>\$2",
