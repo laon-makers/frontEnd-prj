@@ -1,4 +1,4 @@
-/*  Author: Laon Maker (Laon Creators' Group)
+/*  Author: G.T. Cho (a Laon maker/artist in Laon Creators)
     Version: 1.0
     Last update: Dec. 27, 2021
 */
